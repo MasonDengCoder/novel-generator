@@ -11,6 +11,7 @@ def main(argv):
 
     p_start = sub.add_parser("start")
     p_start.add_argument("chapter_id", type=int)
+    p_start.add_argument("--prose-ref", default=None)
 
     p_phase = sub.add_parser("phase")
     p_phase.add_argument("chapter_id", type=int)
@@ -18,6 +19,8 @@ def main(argv):
 
     p_end = sub.add_parser("end")
     p_end.add_argument("chapter_id", type=int)
+    p_end.add_argument("--prose-ref", default=None)
+    p_end.add_argument("--word-count", type=int, default=None)
 
     p_res = sub.add_parser("residue")
     p_res.add_argument("residue_action")  # "add"
@@ -29,9 +32,10 @@ def main(argv):
     if args.action == "start":
         cid = args.chapter_id
         db.execute(
-            "INSERT INTO chapter_writing (chapter_id, started_at) VALUES (?,?) "
-            "ON CONFLICT(chapter_id) DO UPDATE SET started_at=excluded.started_at",
-            (cid, now),
+            "INSERT INTO chapter_writing (chapter_id, started_at, prose_ref) VALUES (?,?,?) "
+            "ON CONFLICT(chapter_id) DO UPDATE SET started_at=excluded.started_at, "
+            "prose_ref=COALESCE(excluded.prose_ref, prose_ref)",
+            (cid, now, args.prose_ref),
         )
         db.execute("UPDATE chapters SET status='writing' WHERE id=?", (cid,))
         presummary = db.query("SELECT constraints FROM presummary WHERE chapter_id=?", (cid,))
@@ -60,15 +64,25 @@ def main(argv):
                 db.execute("UPDATE chapters SET status='must_failed' WHERE id=?", (cid,))
                 db.emit_error(f"must 约束未落地: {failed}")
 
-        # success
-        cw = db.query("SELECT prose_ref FROM chapter_writing WHERE chapter_id=?", (cid,))
-        word_count = 0  # telemetry placeholder
+        # success — only overwrite prose_ref / word_count if caller supplied them
+        update_parts = ["ended_at=?"]
+        update_vals = [now]
+        if args.prose_ref is not None:
+            update_parts.append("prose_ref=?")
+            update_vals.append(args.prose_ref)
+        if args.word_count is not None:
+            update_parts.append("word_count=?")
+            update_vals.append(args.word_count)
+        update_vals.append(cid)
         db.execute(
-            "UPDATE chapter_writing SET ended_at=?, word_count=? WHERE chapter_id=?",
-            (now, word_count, cid),
+            f"UPDATE chapter_writing SET {', '.join(update_parts)} WHERE chapter_id=?",
+            tuple(update_vals),
         )
         db.execute("UPDATE chapters SET status='done' WHERE id=?", (cid,))
-        db.emit_json({"ok": True, "chapter_id": cid, "word_count": word_count})
+        cw = db.query("SELECT prose_ref, word_count FROM chapter_writing WHERE chapter_id=?", (cid,))
+        db.emit_json({"ok": True, "chapter_id": cid,
+                      "prose_ref": cw[0]["prose_ref"] if cw else None,
+                      "word_count": cw[0]["word_count"] if cw else None})
 
     elif args.action == "residue":
         if args.residue_action == "add":

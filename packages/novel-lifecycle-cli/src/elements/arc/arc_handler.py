@@ -23,6 +23,11 @@ def main(argv):
 
     sub.add_parser("list-dormant-reactivating")
 
+    p_react = sub.add_parser("set-reactivation")
+    p_react.add_argument("--id", type=int, required=True)
+    p_react.add_argument("--flag", type=int, required=True)
+    p_react.add_argument("--last-active-chapter-id", type=int, default=None)
+
     args = parser.parse_args(argv[1:])
 
     if args.action == "add":
@@ -46,6 +51,19 @@ def main(argv):
 
     elif args.action == "list-dormant-reactivating":
         db.emit_json(db.query("SELECT * FROM arc WHERE reactivation_flag=1"))
+
+    elif args.action == "set-reactivation":
+        if args.last_active_chapter_id is not None:
+            db.execute(
+                "UPDATE arc SET reactivation_flag=?, last_active_chapter_id=? WHERE id=?",
+                (args.flag, args.last_active_chapter_id, args.id),
+            )
+        else:
+            db.execute(
+                "UPDATE arc SET reactivation_flag=? WHERE id=?",
+                (args.flag, args.id),
+            )
+        db.emit_json(db.query("SELECT * FROM arc WHERE id=?", (args.id,))[0])
 
     else:
         parser.print_help()

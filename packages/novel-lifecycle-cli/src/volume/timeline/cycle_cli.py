@@ -17,6 +17,19 @@ def main(argv):
     p_rp.add_argument("level")  # "event"
     p_rp.add_argument("id", type=int)
 
+    p_csig = sub.add_parser("converge-signal")
+    p_csig.add_argument("--chapter-id", type=int, required=True)
+    p_csig.add_argument("--volume-id", type=int, required=True)
+    p_csig.add_argument("--converging", type=int, required=True)
+    p_csig.add_argument("--pulled-by-emergent-id", type=int, default=None)
+    p_csig.add_argument("--detail", default=None)
+
+    p_cverd = sub.add_parser("convergence-verdict")
+    p_cverd.add_argument("--volume-id", type=int, required=True)
+    p_cverd.add_argument("--verdict", required=True)
+    p_cverd.add_argument("--drift-note", default=None)
+    p_cverd.add_argument("--target-achieved", type=int, default=None)
+
     args = parser.parse_args(argv[1:])
 
     if args.action == "close-event":
@@ -100,6 +113,35 @@ def main(argv):
             (eid,),
         )
         db.emit_json(chapters)
+
+    elif args.action == "converge-signal":
+        sid = db.execute(
+            "INSERT INTO target_convergence_signal "
+            "(chapter_id, volume_id, converging, pulled_by_emergent_id, detail) VALUES (?,?,?,?,?)",
+            (args.chapter_id, args.volume_id, args.converging,
+             args.pulled_by_emergent_id, args.detail),
+        )
+        db.emit_json({"ok": True, "id": sid, "chapter_id": args.chapter_id,
+                      "converging": args.converging})
+
+    elif args.action == "convergence-verdict":
+        vid = args.volume_id
+        existing = db.query("SELECT id FROM great_cycles WHERE volume_id=? LIMIT 1", (vid,))
+        if existing:
+            db.execute(
+                "UPDATE great_cycles SET target_convergence_verdict=?, drift_note=? WHERE id=?",
+                (args.verdict, args.drift_note, existing[0]["id"]),
+            )
+            gc_id = existing[0]["id"]
+        else:
+            gc_id = db.execute(
+                "INSERT INTO great_cycles (volume_id, target_convergence_verdict, drift_note) VALUES (?,?,?)",
+                (vid, args.verdict, args.drift_note),
+            )
+        if args.target_achieved is not None:
+            db.execute("UPDATE volumes SET target_achieved=? WHERE id=?", (args.target_achieved, vid))
+        db.emit_json({"ok": True, "great_cycle_id": gc_id, "volume_id": vid,
+                      "verdict": args.verdict})
 
     else:
         parser.print_help()

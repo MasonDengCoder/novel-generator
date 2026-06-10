@@ -14,19 +14,23 @@ _SRC_DIR = next(
 sys.path.insert(0, os.path.abspath(_SRC_DIR))
 
 COMMANDS = {
-    "init":       "novel/project_init/init_project.py",
-    "stage":      "novel/stages/stage_manager.py",
-    "finalize":   "novel/cycle_close/cycle_close_cli.py",
-    "style":      "novel/style/style_cli.py",
-    "weave":      "volume/timeline/weave_cli.py",
-    "cycle":      "volume/timeline/cycle_cli.py",
-    "presummary": "volume/timeline/presummary_cli.py",
-    "prose":      "chapter/prose/prose_cli.py",
-    "db":         "elements/element_manager.py",
-    "emergent":   "elements/element_manager.py",
-    "arc":        "elements/element_manager.py",
-    "bible":      "elements/element_manager.py",
-    "context":    "elements/element_manager.py",
+    "init":           "novel/project_init/init_project.py",
+    "stage":          "novel/stages/stage_manager.py",
+    "finalize":       "novel/cycle_close/cycle_close_cli.py",
+    "style":          "novel/style/style_cli.py",
+    "mainplot":       "novel/mainplot/mainplot_cli.py",
+    "world-boundary": "novel/world_boundary/world_boundary_cli.py",
+    "finalcheck":     "novel/finalcheck/finalcheck_cli.py",
+    "monitor":        "novel/monitor/monitor_cli.py",
+    "weave":          "volume/timeline/weave_cli.py",
+    "cycle":          "volume/timeline/cycle_cli.py",
+    "presummary":     "volume/timeline/presummary_cli.py",
+    "prose":          "chapter/prose/prose_cli.py",
+    "db":             "elements/element_manager.py",
+    "emergent":       "elements/element_manager.py",
+    "arc":            "elements/element_manager.py",
+    "bible":          "elements/element_manager.py",
+    "context":        "elements/element_manager.py",
 }
 
 def _load(rel_path):

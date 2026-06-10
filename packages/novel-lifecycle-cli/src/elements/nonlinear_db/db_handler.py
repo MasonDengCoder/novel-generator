@@ -2,6 +2,8 @@ import argparse
 import sys
 from core import db
 
+_TABLES = ["subplot", "foreshadowing", "payoff", "promise"]
+
 
 def main(argv):
     parser = argparse.ArgumentParser()
@@ -24,15 +26,15 @@ def main(argv):
     p_promise.add_argument("--deadline-chapter", type=int, default=None)
 
     p_list = sub.add_parser("list")
-    p_list.add_argument("--type", required=True, choices=["subplot","foreshadowing","payoff","promise"])
+    p_list.add_argument("--type", required=True, choices=_TABLES)
 
     p_upd = sub.add_parser("update")
-    p_upd.add_argument("--type", required=True)
+    p_upd.add_argument("--type", required=True, choices=_TABLES)
     p_upd.add_argument("--id", type=int, required=True)
     p_upd.add_argument("--status", required=True)
 
     p_get = sub.add_parser("get")
-    p_get.add_argument("--type", required=True)
+    p_get.add_argument("--type", required=True, choices=_TABLES)
     p_get.add_argument("--id", type=int, required=True)
 
     args = parser.parse_args(argv[1:])

@@ -14,6 +14,7 @@ def main(argv):
 
     p_list = sub.add_parser("list")
     p_list.add_argument("--status", default=None)
+    p_list.add_argument("--scored", action="store_true")
 
     p_score = sub.add_parser("score")
     p_score.add_argument("--id", type=int, required=True)
@@ -38,10 +39,15 @@ def main(argv):
         db.emit_json(db.query("SELECT * FROM emergent WHERE id=?", (rid,))[0])
 
     elif args.action == "list":
+        conds = []
+        params = []
         if args.status:
-            rows = db.query("SELECT * FROM emergent WHERE status=?", (args.status,))
-        else:
-            rows = db.query("SELECT * FROM emergent")
+            conds.append("status=?")
+            params.append(args.status)
+        if args.scored:
+            conds.append("score IS NOT NULL")
+        where = (" WHERE " + " AND ".join(conds)) if conds else ""
+        rows = db.query("SELECT * FROM emergent" + where, tuple(params))
         db.emit_json(rows)
 
     elif args.action == "score":
