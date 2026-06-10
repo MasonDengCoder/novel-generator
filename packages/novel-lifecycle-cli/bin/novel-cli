@@ -4,7 +4,13 @@ import os
 import sys
 
 _BIN_DIR = os.path.dirname(os.path.abspath(__file__))
-_SRC_DIR = os.path.join(_BIN_DIR, "..", "src")
+# src/ may sit as a sibling (repo: bin/../src) or as a child of the entry dir
+# (installed top-level copy: scripts/novel-cli -> scripts/src). Resolve both.
+_SRC_DIR = next(
+    (p for p in (os.path.join(_BIN_DIR, "..", "src"), os.path.join(_BIN_DIR, "src"))
+     if os.path.isdir(p)),
+    os.path.join(_BIN_DIR, "..", "src"),
+)
 sys.path.insert(0, os.path.abspath(_SRC_DIR))
 
 COMMANDS = {
