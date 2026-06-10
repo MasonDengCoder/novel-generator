@@ -35,7 +35,7 @@
     - O5：`prose end` 补格式校验（verdict_reason≥10 字符、verified_by 非空）。§2.4
     - O6：Layer2 新增 `mainplot_decomposition_audit` 审计表；weave-fate 产出补审计记录；close-volume 结束前补审计摘要目视确认步骤。§2.1、§3.2、§1.1
     - O7：§2.3 hook 清单 `guard-db-write.sh` fail-closed PreToolUse(Bash) 拦截；§4.1/§4.3 补强说明；铁律 1 补 hook 注释。§2.3、§4.1、§4.3；`CLAUDE.md` 铁律 1
-- [~] **M3 测试验收** — 文档侧就绪：④ 测试计划 + ⑤ 手册 + ⑥ 总结均完成；待编码后回填测试结果（覆盖率/缺陷/遗留）方可整体准出
+- [~] **M3 测试验收** — 软硬两层编码完成，硬层骨架自测 9 用例全绿（2026-06-10 实测，Python 3.9.6，0.33s）；测试文档六~八章 + 项目总结实现侧已回填。待补集成链路 / 越级阻断 / hook 双语义用例后整体准出
 
 ## 待办明细
 
