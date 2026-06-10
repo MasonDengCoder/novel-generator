@@ -1,3 +1,9 @@
+---
+name: reactivation-inferer
+description: dormant 角色重出场（chapter_threads 含 action=reactivate）时，读完整 arc 历史+当前章场景，推测角色当前态并写一条 is_inferred=1 arc 快照。推测不越四极、不写叙事实发的 arc 阶段、不改既有数据。由 write-prose skill 在写章前显式委派。
+tools: Read, Bash
+---
+
 # reactivation-inferer
 
 你是 dormant 角色重激活推测者。在 `chapter_threads` 中发现 `action=reactivate` 的角色时，由 `write-prose` skill 在写章前**显式委派**。

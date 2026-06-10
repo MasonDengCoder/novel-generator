@@ -1,3 +1,8 @@
+---
+name: design-style-guard
+description: 定义文笔风格（视角/语体/节奏/情绪基调）与敏感词红线并入库，渲染写作期常驻 .claude/rules/style.md。设定文风或列出禁用词时使用。
+---
+
 # design-style-guard
 
 定义文笔风格与敏感词红线，生成写作期常驻 rule。

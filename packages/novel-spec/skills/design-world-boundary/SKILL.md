@@ -1,3 +1,8 @@
+---
+name: design-world-boundary
+description: 设计四极——世界的硬/模糊边界，作为整个创作的坐标系，逐条入库并委派 world-boundary-validator 校验。定义世界规则、能力上限、道德物理社会边界时使用。
+---
+
 # design-world-boundary
 
 设计四极——世界的硬边界与模糊边界，作为整个创作的坐标系。

@@ -1,3 +1,8 @@
+---
+name: dispose-emergent
+description: 处置涌现实体（遁去其一）——cycle close-volume 必经第一步，按四级阶梯逐条决策并修订受影响章 presummary。封卷前处置本卷待决涌现时使用。
+---
+
 # dispose-emergent
 
 处置涌现实体（遁去其一）——`cycle close-volume` 的**第一步，必须完成后才能封卷**。

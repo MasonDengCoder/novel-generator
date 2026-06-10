@@ -1,5 +1,18 @@
 {
   "name": "@novel-generator/lifecycle-cli",
   "version": "0.1.0",
-  "private": true
+  "description": "Zero-dependency Python state machine + SQLite hard layer for novel-generator",
+  "main": "install-cli.js",
+  "bin": {
+    "install-novel-cli": "install-cli.js"
+  },
+  "files": [
+    "install-cli.js",
+    "bin/",
+    "src/"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "license": "MIT"
 }

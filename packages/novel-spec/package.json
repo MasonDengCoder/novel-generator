@@ -1,8 +1,24 @@
 {
   "name": "@novel-generator/spec",
   "version": "0.1.0",
-  "private": true,
+  "description": "Claude Code harness for novel-generator: skills, agents, hooks, rules (soft layer)",
+  "main": "install-spec.js",
+  "bin": {
+    "install-novel-spec": "install-spec.js"
+  },
+  "files": [
+    "install-spec.js",
+    "skills/",
+    "agents/",
+    "hooks/",
+    "rules/",
+    "templates/"
+  ],
   "dependencies": {
     "@novel-generator/lifecycle-cli": "*"
-  }
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "license": "MIT"
 }

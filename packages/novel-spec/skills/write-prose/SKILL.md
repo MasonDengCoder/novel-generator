@@ -1,3 +1,8 @@
+---
+name: write-prose
+description: 写一章正文——prose start 到 prose end 的完整写作流程，含加载上下文、逐相登记、委派 mainplot-landing-verifier 裁决 must 落地、收章门禁。写某章正文、续写或重写被阻断的章时使用。
+---
+
 # write-prose
 
 写一章正文——从 prose start 到 prose end 的完整写作流程。

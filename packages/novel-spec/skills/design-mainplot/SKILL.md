@@ -1,3 +1,8 @@
+---
+name: design-mainplot
+description: 设计主线节点（大势定数）——逐节点入库并标注 is_immutable，委派 mainplot-minor-guardian 防过标。要规划主线、设定终局与不可绕过的里程碑时使用。
+---
+
 # design-mainplot
 
 设计主线节点——3000 大道，故事的不可更改的定数。
