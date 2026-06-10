@@ -1,0 +1,8 @@
+{
+  "name": "@novel-generator/spec",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@novel-generator/lifecycle-cli": "*"
+  }
+}

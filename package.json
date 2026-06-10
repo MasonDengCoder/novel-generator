@@ -1,0 +1,5 @@
+{
+  "name": "novel-generator",
+  "private": true,
+  "workspaces": ["packages/*"]
+}

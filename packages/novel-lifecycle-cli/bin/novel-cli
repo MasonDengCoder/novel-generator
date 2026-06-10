@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+import importlib.util
+import os
+import sys
+
+_BIN_DIR = os.path.dirname(os.path.abspath(__file__))
+_SRC_DIR = os.path.join(_BIN_DIR, "..", "src")
+sys.path.insert(0, os.path.abspath(_SRC_DIR))
+
+COMMANDS = {
+    "init":       "novel/project_init/init_project.py",
+    "stage":      "novel/stages/stage_manager.py",
+    "finalize":   "novel/cycle_close/cycle_close_cli.py",
+    "style":      "novel/style/style_cli.py",
+    "weave":      "volume/timeline/weave_cli.py",
+    "cycle":      "volume/timeline/cycle_cli.py",
+    "presummary": "volume/timeline/presummary_cli.py",
+    "prose":      "chapter/prose/prose_cli.py",
+    "db":         "elements/element_manager.py",
+    "emergent":   "elements/element_manager.py",
+    "arc":        "elements/element_manager.py",
+    "bible":      "elements/element_manager.py",
+    "context":    "elements/element_manager.py",
+}
+
+def _load(rel_path):
+    abs_path = os.path.abspath(os.path.join(_SRC_DIR, rel_path))
+    spec = importlib.util.spec_from_file_location("_cmd", abs_path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+def _extract_db_path(args):
+    """Extract --db-path from args (for non-init commands); falls back to NOVEL_DB env."""
+    for i, a in enumerate(args):
+        if a == "--db-path" and i + 1 < len(args):
+            return args[i + 1]
+    return os.environ.get("NOVEL_DB", "index/novel.db")
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: novel-cli <command> [args...]", file=sys.stderr)
+        sys.exit(1)
+    cmd = sys.argv[1]
+    if cmd not in COMMANDS:
+        print(f"Unknown command: {cmd}", file=sys.stderr)
+        sys.exit(1)
+
+    # For non-init commands, ensure db is connected before dispatching
+    if cmd != "init":
+        from core import db as _db
+        db_path = _extract_db_path(sys.argv[2:])
+        _db.init_db(db_path)
+
+    mod = _load(COMMANDS[cmd])
+    mod.main(sys.argv[1:])
