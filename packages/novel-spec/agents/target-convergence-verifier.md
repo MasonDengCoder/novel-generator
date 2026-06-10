@@ -14,16 +14,16 @@ tools: Read, Bash
 
 ## 执行步骤
 
-1. 取本卷信息：`scripts/novel-cli cycle show-volume <volume_id>`（含 `mainplot_target_node_id`）
-2. 取目标主线节点内容：`scripts/novel-cli stage list-mainplot-nodes`
-3. 取本卷所有收束信号：`scripts/novel-cli context list-convergence --volume-id <volume_id>`
+1. 取本卷信息：`novel-cli cycle show-volume <volume_id>`（含 `mainplot_target_node_id`）
+2. 取目标主线节点内容：`novel-cli stage list-mainplot-nodes`
+3. 取本卷所有收束信号：`novel-cli context list-convergence --volume-id <volume_id>`
 4. 综合判定：
    - `achieved`：大多数章 `converging=1`，且末章附近无未处置的 `converging=0` 涌现拽离
    - `at_risk`：存在多章 `converging=0` 但已有处置记录
    - `missed`：末章 `converging=0` 且未处置，或主线节点核心要素在本卷正文中明确缺失
 5. 写判定结果：
    ```
-   scripts/novel-cli cycle update-convergence-verdict \
+   novel-cli cycle update-convergence-verdict \
      --volume-id <volume_id> \
      --verdict <achieved|at_risk|missed> \
      --drift-note "<涌现拽离摘要，missed 时必填>"

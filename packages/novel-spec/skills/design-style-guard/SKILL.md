@@ -18,7 +18,7 @@ description: 定义文笔风格（视角/语体/节奏/情绪基调）与敏感�
 
 2. **入库文风定义**（每个维度一条）：
    ```
-   scripts/novel-cli style set-voice \
+   novel-cli style set-voice \
      --aspect "<维度名>" \
      --content "<描述>"
    ```
@@ -30,7 +30,7 @@ description: 定义文笔风格（视角/语体/节奏/情绪基调）与敏感�
 
 4. **入库敏感词**（逐条）：
    ```
-   scripts/novel-cli style add-sensitive \
+   novel-cli style add-sensitive \
      --word "<词>" \
      --category "<政治|人名|风格|其他>" \
      --severity "<error|warning>"
@@ -38,7 +38,7 @@ description: 定义文笔风格（视角/语体/节奏/情绪基调）与敏感�
 
 5. **渲染常驻 rule** — 从 DB 生成 `.claude/rules/style.md`：
    ```
-   scripts/novel-cli style render-rule --output .claude/rules/style.md
+   novel-cli style render-rule --output .claude/rules/style.md
    ```
    > 此文件写作期每轮常驻，LLM 写正文时自动遵守。
 

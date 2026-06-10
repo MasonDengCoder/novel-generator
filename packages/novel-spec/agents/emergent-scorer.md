@@ -25,15 +25,15 @@ tools: Read, Bash
 
 ## 执行步骤
 
-1. 取待评分涌现列表：`scripts/novel-cli emergent list --status pending --no-score`
+1. 取待评分涌现列表：`novel-cli emergent list --status pending --no-score`
 2. 对每个涌现：
-   a. 读其 arc 历史：`scripts/novel-cli arc list --emergent-id <id>`
-   b. 读其催生章前后的 presummary：`scripts/novel-cli presummary get <chapter_id>`
-   c. 读近 3 章 residue：`scripts/novel-cli prose list-residue --near-chapter <chapter_id> --limit 3`
+   a. 读其 arc 历史：`novel-cli arc list --emergent-id <id>`
+   b. 读其催生章前后的 presummary：`novel-cli presummary get <chapter_id>`
+   c. 读近 3 章 residue：`novel-cli prose list-residue --near-chapter <chapter_id> --limit 3`
    d. 打四维分（各 0–100 整数）
    e. 写入：
       ```
-      scripts/novel-cli emergent update-score \
+      novel-cli emergent update-score \
         --id <id> \
         --score-causal <n> --score-character <n> \
         --score-theme <n> --score-surprise <n> \

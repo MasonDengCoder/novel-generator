@@ -17,7 +17,7 @@ description: 封印创世——终检（主线节点覆盖性校验+世界圣经
 ### 1. 终检
 
 ```
-scripts/novel-cli finalize check
+novel-cli finalize check
 ```
 
 检查内容：
@@ -27,15 +27,15 @@ scripts/novel-cli finalize check
 
 若阻断：
 ```
-scripts/novel-cli finalize list-orphan-nodes   # 查看孤儿节点清单
+novel-cli finalize list-orphan-nodes   # 查看孤儿节点清单
 # 处置：补绑节点到某卷/事件，或降级 is_immutable=0
-scripts/novel-cli finalize check               # 复验
+novel-cli finalize check               # 复验
 ```
 
 ### 2. 处置剩余涌现（周期级）
 
 ```
-scripts/novel-cli finalize dispose-emergent
+novel-cli finalize dispose-emergent
 ```
 
 处置所有未在卷级处置的 story_wide 级涌现。
@@ -43,7 +43,7 @@ scripts/novel-cli finalize dispose-emergent
 ### 3. 封档
 
 ```
-scripts/novel-cli finalize seal
+novel-cli finalize seal
 ```
 
 封档后 DB 进入只读模式，任何写操作将被 `core/db.py` 拦截。

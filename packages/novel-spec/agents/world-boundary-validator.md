@@ -14,7 +14,7 @@ tools: Read, Bash
 
 ## 执行步骤
 
-1. 取四极定义：`scripts/novel-cli stage list-boundaries`
+1. 取四极定义：`novel-cli stage list-boundaries`
 2. 校验以下条件（全部通过才写信号）：
    - 至少 3 条硬边界（`is_fuzzy=0`）
    - 至少 1 条模糊边界（`is_fuzzy=1`）
@@ -23,7 +23,7 @@ tools: Read, Bash
    - 硬边界描述具体可判断（非"任何都可以"之类空洞表述）
 3. **校验通过**：
    ```
-   scripts/novel-cli finalize signal \
+   novel-cli finalize signal \
      --check-type boundary_validated \
      --result pass \
      --detail "硬边界N条，模糊边界M条，内部一致"

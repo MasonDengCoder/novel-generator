@@ -26,15 +26,15 @@ description: 设计旁门——支线、伏笔、爽点、承诺，构成主线�
 
 2. **逐条入库**（举例）：
    ```
-   scripts/novel-cli db add-subplot --title "<标题>" --description "<简述>"
-   scripts/novel-cli db add-foreshadowing --content "<伏笔内容>" --planted-at <chapter_seq>
-   scripts/novel-cli db add-payoff --foreshadowing-id <id> --content "<收束方式>"
-   scripts/novel-cli db add-promise --content "<承诺内容>" --deadline-chapter <seq>
+   novel-cli db add-subplot --title "<标题>" --description "<简述>"
+   novel-cli db add-foreshadowing --content "<伏笔内容>" --planted-at <chapter_seq>
+   novel-cli db add-payoff --foreshadowing-id <id> --content "<收束方式>"
+   novel-cli db add-promise --content "<承诺内容>" --deadline-chapter <seq>
    ```
 
 3. **展示全貌** — 输出旁门台账概览：
    ```
-   scripts/novel-cli db list-all-destiny
+   novel-cli db list-all-destiny
    ```
 
 4. 确认完整，提示下一步：`/weave-fate` 开始编织卷/事件/章结构。

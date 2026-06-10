@@ -21,7 +21,7 @@ description: 处置涌现实体（遁去其一）——cycle close-volume 必经
 ### 1. 取待处置涌现列表（已评分）
 
 ```
-scripts/novel-cli emergent list --status pending --scored
+novel-cli emergent list --status pending --scored
 ```
 
 若存在未评分涌现，**先委派 `emergent-scorer`** 补分，再继续。
@@ -31,7 +31,7 @@ scripts/novel-cli emergent list --status pending --scored
 参考评分结果（≥70 positive / 50–69 neutral / <50 negative）：
 
 ```
-scripts/novel-cli emergent update-disposition \
+novel-cli emergent update-disposition \
   --id <id> \
   --level volume \
   --disposition <integrate|suppress|transform|archive> \
@@ -41,7 +41,7 @@ scripts/novel-cli emergent update-disposition \
 ### 3. 修订受影响章节的 presummary（若处置改变后续约束）
 
 ```
-scripts/novel-cli db update presummary \
+novel-cli db update presummary \
   --chapter-id <id> \
   --constraint-idx <idx> \
   --content "<修订后的约束内容>"
@@ -50,7 +50,7 @@ scripts/novel-cli db update presummary \
 ### 4. 完成后确认清单
 
 ```
-scripts/novel-cli emergent list --volume-id <volume_id> --status pending
+novel-cli emergent list --volume-id <volume_id> --status pending
 ```
 
 所有 pending 涌现处置完毕后，提示继续执行 `cycle close-volume`。

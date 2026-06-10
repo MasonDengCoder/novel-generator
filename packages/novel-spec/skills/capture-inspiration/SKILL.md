@@ -20,7 +20,7 @@ description: 捕捉创作奇点——那个让这个故事必须被写出来的�
 
 3. **入库**：
    ```
-   scripts/novel-cli stage set-inspiration --content "<奇点内容>"
+   novel-cli stage set-inspiration --content "<奇点内容>"
    ```
 
 4. **确认** — 展示入库内容，询问是否继续到 `/draft-premise`。

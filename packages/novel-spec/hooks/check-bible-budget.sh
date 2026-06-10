@@ -4,7 +4,7 @@
 # active 层超限 → 仅警告建议 /close-volume，不阻断
 # 脚本故障 → exit 0
 
-NOVEL_CLI="${NOVEL_CLI:-scripts/novel-cli}"
+NOVEL_CLI="${NOVEL_CLI:-novel-cli}"
 ACTIVE_LIMIT=3000
 
 # 取 active 层字数（中文字符数），故障则放行

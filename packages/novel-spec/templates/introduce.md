@@ -3,13 +3,13 @@
 ## 安装
 
 ```bash
-# 完整安装（软层 + 硬层）
+# 完整安装（软层 + 全局 novel-cli，目标项目内无 scripts/ 副本）
 node /path/to/novel-generator/packages/novel-spec/install-spec.js [目标目录]
-# 仅装硬层
+# 仅装硬层（无 LLM 环境，复制自包含 scripts/ 副本）
 node /path/to/novel-generator/packages/novel-lifecycle-cli/install-cli.js [目标目录]
 ```
 
-宿主机须已安装 `python3 >= 3.8`。
+宿主机须已安装 `python3 >= 3.8`。完整安装后 `novel-cli` 在全局 PATH，于项目目录内直接调用（默认操作 CWD 下 `index/novel.db`）。
 
 ## 首次使用流程
 
@@ -29,12 +29,12 @@ node /path/to/novel-generator/packages/novel-lifecycle-cli/install-cli.js [目�
 ## 常用 CLI 查询
 
 ```bash
-scripts/novel-cli bible core            # 世界核心/四极（只读）
-scripts/novel-cli bible active          # 当前卷活跃状态
-scripts/novel-cli bible full            # 完整圣经视图
-scripts/novel-cli emergent list         # 涌现台账
-scripts/novel-cli db list-all-destiny   # 旁门台账概览
-scripts/novel-cli context chapter <id> # 本章线索绑定
+novel-cli bible core            # 世界核心/四极（只读）
+novel-cli bible active          # 当前卷活跃状态
+novel-cli bible full            # 完整圣经视图
+novel-cli emergent list         # 涌现台账
+novel-cli db list-all-destiny   # 旁门台账概览
+novel-cli context chapter <id> # 本章线索绑定
 ```
 
 ## DB 路径

@@ -16,7 +16,7 @@ description: 提取章末残余——未解决的悬念、新生线索、待升�
 
 2. **逐条录入残余**：
    ```
-   scripts/novel-cli prose residue add \
+   novel-cli prose residue add \
      --chapter-id <id> \
      --type <unresolved_mystery|new_clue|pending_escalation|other> \
      --content "<残余内容描述>"
@@ -24,7 +24,7 @@ description: 提取章末残余——未解决的悬念、新生线索、待升�
 
 3. **展示残余台账**（供下章写作参考）：
    ```
-   scripts/novel-cli prose list-residue --chapter-id <id>
+   novel-cli prose list-residue --chapter-id <id>
    ```
 
 4. 提示：残余将在 `pre-write-chapter` hook 注入下一章 context，确保跨章续接。

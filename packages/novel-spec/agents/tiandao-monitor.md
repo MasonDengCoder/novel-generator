@@ -12,8 +12,8 @@ tools: Read, Bash
 
 ### 1. 撞极 / 违契约 / 涌现催生检测
 
-- 对照四极边界（`scripts/novel-cli stage list-boundaries`）检查本章正文是否突破硬边界
-- 对照活跃契约（`scripts/novel-cli db list promise --active`）检查是否违约
+- 对照四极边界（`novel-cli stage list-boundaries`）检查本章正文是否突破硬边界
+- 对照活跃契约（`novel-cli db list promise --active`）检查是否违约
 - 检查正文中是否出现符合涌现催生特征的人物/事件（新生力量、意外转折、超出计划的存在）
 
 ### 2. 卷目标收束预警
@@ -21,7 +21,7 @@ tools: Read, Bash
 读最近 N 章（取 `--limit 5`）的 `target_convergence_signal`：
 
 ```
-scripts/novel-cli context list-convergence --volume-id <volume_id> --limit 5
+novel-cli context list-convergence --volume-id <volume_id> --limit 5
 ```
 
 若出现连续 `converging=0`，输出预警到 `monitor_signal`：哪个涌现在拽离（`pulled_by_emergent_id`）、已持续几章。
@@ -29,7 +29,7 @@ scripts/novel-cli context list-convergence --volume-id <volume_id> --limit 5
 ### 3. 未评分涌现预警
 
 ```
-scripts/novel-cli emergent list --status pending --no-score
+novel-cli emergent list --status pending --no-score
 ```
 
 非空则输出 `WARNING: unscored emergents: <id列表>` 到 `monitor_signal`。
@@ -39,7 +39,7 @@ scripts/novel-cli emergent list --status pending --no-score
 每次监测将结果写入：
 
 ```
-scripts/novel-cli prose add-monitor-signal \
+novel-cli prose add-monitor-signal \
   --chapter-id <id> \
   --signal-type <boundary_breach|contract_violation|emergent_catalyst|convergence_risk|unscored_emergent> \
   --severity <info|warning|critical> \
@@ -50,7 +50,7 @@ scripts/novel-cli prose add-monitor-signal \
 
 ## 触发规则
 
-按本章 `chapter_threads` 条目数（`scripts/novel-cli context chapter <id> --count-only`）：
+按本章 `chapter_threads` 条目数（`novel-cli context chapter <id> --count-only`）：
 
 | 条目数 | 复杂度 | 监测深度 |
 |--------|-------|---------|

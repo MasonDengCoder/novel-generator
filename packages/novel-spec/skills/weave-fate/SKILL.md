@@ -33,7 +33,7 @@ description: 编织命运结构——卷→事件→小节→章，按滚动窗�
 ### 新建卷
 
 ```
-scripts/novel-cli weave volume \
+novel-cli weave volume \
   --title "<卷标题>" \
   [--mainplot-target-node-id <node_id>]
 ```
@@ -41,7 +41,7 @@ scripts/novel-cli weave volume \
 ### 规划事件（卷内）
 
 ```
-scripts/novel-cli weave event \
+novel-cli weave event \
   --volume-id <id> --title "<事件标题>" \
   [--mainplot-node-id <node_id>] \
   [--is-mainplot-critical 1]
@@ -52,7 +52,7 @@ scripts/novel-cli weave event \
 ### 规划小节（事件内）
 
 ```
-scripts/novel-cli weave section \
+novel-cli weave section \
   --event-id <id> --title "<小节标题>" \
   [--mainplot-must-beat "<必达节拍>"]
 ```
@@ -60,7 +60,7 @@ scripts/novel-cli weave section \
 ### 规划章（小节内）
 
 ```
-scripts/novel-cli weave chapter \
+novel-cli weave chapter \
   --section-id <id> --title "<章标题>" --seq <全书顺序编号>
 ```
 
@@ -69,7 +69,7 @@ scripts/novel-cli weave chapter \
 ### 生成章预摘要（presummary）
 
 ```
-scripts/novel-cli presummary generate <chapter_id>
+novel-cli presummary generate <chapter_id>
 ```
 
 编织结束后提示：通过 `/write-prose` 开始正文写作。

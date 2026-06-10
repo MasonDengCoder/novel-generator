@@ -6,7 +6,7 @@
 
 set -e
 
-NOVEL_CLI="${NOVEL_CLI:-scripts/novel-cli}"
+NOVEL_CLI="${NOVEL_CLI:-novel-cli}"
 
 INPUT=$(cat)
 FILE_PATH=$(printf '%s' "$INPUT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))" 2>/dev/null) || exit 0

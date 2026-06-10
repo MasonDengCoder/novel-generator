@@ -23,7 +23,7 @@ description: 设计四极——世界的硬/模糊边界，作为整个创作的
 
 2. **逐条入库**（每条边界一次）：
    ```
-   scripts/novel-cli stage add-boundary \
+   novel-cli stage add-boundary \
      --type "<分类：能力|道德|物理|社会|其他>" \
      --content "<边界描述>" \
      --is-fuzzy <0|1>
@@ -36,7 +36,7 @@ description: 设计四极——世界的硬/模糊边界，作为整个创作的
 
 4. **推进阶段**（门禁在 CLI 端，`finalcheck_signal` 缺失则阻断）：
    ```
-   scripts/novel-cli stage complete world-boundary
+   novel-cli stage complete world-boundary
    ```
 
 5. 提示下一步：`/design-style-guard` 定义文风红线。

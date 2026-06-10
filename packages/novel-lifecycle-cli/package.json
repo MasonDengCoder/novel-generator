@@ -4,7 +4,8 @@
   "description": "Zero-dependency Python state machine + SQLite hard layer for novel-generator",
   "main": "install-cli.js",
   "bin": {
-    "install-novel-cli": "install-cli.js"
+    "install-novel-cli": "install-cli.js",
+    "novel-cli": "bin/novel-cli"
   },
   "files": [
     "install-cli.js",

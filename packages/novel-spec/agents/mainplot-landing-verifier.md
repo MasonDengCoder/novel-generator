@@ -15,8 +15,8 @@ tools: Read, Bash
 ## 输入
 
 - 本章正文：`manuscripts/` 下对应章文件（路径由委派者提供）
-- 本章 must 约束：`scripts/novel-cli presummary get <chapter_id>` 中 `type=must AND mainplot_node_id IS NOT NULL` 的条目
-- 关联主线节点：`scripts/novel-cli stage list-mainplot-nodes`（或直接从 presummary 结果关联）
+- 本章 must 约束：`novel-cli presummary get <chapter_id>` 中 `type=must AND mainplot_node_id IS NOT NULL` 的条目
+- 关联主线节点：`novel-cli stage list-mainplot-nodes`（或直接从 presummary 结果关联）
 
 ## 执行步骤
 
@@ -25,7 +25,7 @@ tools: Read, Bash
 3. 逐条语义判断正文是否满足该 must（结合 `verify_method` 字段描述的验证方式）
 4. 对每条约束调用：
    ```
-   scripts/novel-cli presummary update-constraint \
+   novel-cli presummary update-constraint \
      --chapter-id <id> --constraint-idx <idx> \
      --satisfied <1|0> \
      --verdict-reason "<理由，≤100字>" \
@@ -33,7 +33,7 @@ tools: Read, Bash
    ```
 5. 判断本章叙事是否仍向卷必达目标收束（综合所有 must 落地情况 + 是否有涌现拽离迹象）：
    ```
-   scripts/novel-cli context update-convergence \
+   novel-cli context update-convergence \
      --chapter-id <id> \
      --converging <1|0> \
      [--pulled-by-emergent-id <id>] \

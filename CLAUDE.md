@@ -35,7 +35,7 @@ packages/novel-lifecycle-cli/   硬层：Python 零依赖状态机 + SQLite 唯�
 
 ## 不可违反的铁律（编码时一律遵守）
 
-1. **软↔硬唯一接口 = `scripts/novel-cli <子命令>`**。软层任何阶段不得绕过 CLI 直接读写 DB 或设定文件。（绕过 CLI 直接写 DB 的 Bash 命令由 `guard-db-write.sh` hook 在脱轨场景下 fail-closed 钢性拦截，正常流为空操作。）
+1. **软↔硬唯一接口 = `novel-cli <子命令>`**。软层任何阶段不得绕过 CLI 直接读写 DB 或设定文件。（绕过 CLI 直接写 DB 的 Bash 命令由 `guard-db-write.sh` hook 在脱轨场景下 fail-closed 钢性拦截，正常流为空操作。）
 2. **正文绝不入库**。DB 只存 `prose_ref`（弱路径引用）+ `word_count` 遥测。生命周期层不生产、不读取正文本体。
 3. **不可越级修正**。四层轮回（章节→事件→卷→创作周期）权限递增：章节级只能标记，越级处置遁出/改主线一律禁止。处置遁去其一须走四级阶梯：章标记 → 事件轻修 → 卷系统处置 → 周期归档。
 4. **创作元素唯一入口 = `elements/element_manager.py`**。所有元素（支线/伏笔/爽点/承诺/涌现/弧线/线索绑定）读写经此入口分发，生命周期层不直接 import 元素处理器、不直接拼 SQL。
@@ -59,18 +59,18 @@ packages/novel-lifecycle-cli/   硬层：Python 零依赖状态机 + SQLite 唯�
 
 ## CLI 分发机制（编码要点）
 
-`bin/novel-cli` 是带 shebang（`#!/usr/bin/env python3` + chmod 755）的纯 Python 分发器，安装后直接 `scripts/novel-cli <cmd>` 执行，**无需 `python3` 前缀**。用 `importlib` 按**文件路径**加载模块（目录名含连字符无法正常 import）。每个模块暴露 `main(argv)`。所有元素类子命令（db/emergent/arc/bible/context）统一映射到 `element_manager.py` 唯一入口。
+`bin/novel-cli` 是带 shebang（`#!/usr/bin/env python3` + chmod 755）的纯 Python 分发器。完整安装时由 npm 软链到全局 PATH，目标项目内直接 `novel-cli <cmd>` 执行（**无需 `python3` 前缀，无需项目内 `scripts/` 副本**）；CLI 默认对 CWD 下的 `index/novel.db` 操作，单一全局二进制即可服务所有项目，per-project 状态来自工作目录。用 `importlib` 按**文件路径**加载模块（目录名含连字符无法正常 import）；symlink 经 `realpath` 解析回包内 `src/`。每个模块暴露 `main(argv)`。所有元素类子命令（db/emergent/arc/bible/context）统一映射到 `element_manager.py` 唯一入口。
 
 ## 安装与运行（设计目标，待实现）
 
 ```bash
-# 完整安装（软层 + 硬层），宿主机须有 python3 >= 3.8
+# 完整安装（软层 + 全局 novel-cli），宿主机须有 python3 >= 3.8
 node packages/novel-spec/install-spec.js [目标目录]
-# 仅装硬层（供无 LLM 环境驱动）
+# 仅装硬层：在无 LLM 环境复制一份自包含副本到 <target>/scripts/（FR-2.2）
 node packages/novel-lifecycle-cli/install-cli.js [目标目录]
 ```
 
-进程通信：Node `execFileSync` → `scripts/novel-cli`（同步阻塞，JSON stdout，无 RPC 框架）。
+进程通信：Node `execFileSync` → `novel-cli`（同步阻塞，JSON stdout，无 RPC 框架）。
 
 ## 约束原则
 

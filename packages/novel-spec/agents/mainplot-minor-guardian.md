@@ -18,7 +18,7 @@ tools: Read, Bash
 - 对每个高嫌疑节点输出：节点 ID、内容摘要、过标理由，供作者确认是否降级
 
 ```
-scripts/novel-cli stage list-mainplot-nodes --immutable-only
+novel-cli stage list-mainplot-nodes --immutable-only
 ```
 
 逐条语义评估，输出嫌疑清单（不写库，仅供作者决策）。
@@ -28,7 +28,7 @@ scripts/novel-cli stage list-mainplot-nodes --immutable-only
 扫描本卷事件中 `mainplot_node_id IS NOT NULL AND is_mainplot_critical=0` 的记录：
 
 ```
-scripts/novel-cli cycle list-events --volume-id <volume_id> --has-node-id --not-critical
+novel-cli cycle list-events --volume-id <volume_id> --has-node-id --not-critical
 ```
 
 对每条记录判断：该事件推进的主线节点是否具备 `is_mainplot_critical` 特征（卷级必达、不可缺失）。

@@ -4,7 +4,7 @@
 # 取敏感词表 grep 章文件，命中 → 要求修正（正常生效，非故障）
 # 脚本自身故障 → exit 0 静默放行
 
-NOVEL_CLI="${NOVEL_CLI:-scripts/novel-cli}"
+NOVEL_CLI="${NOVEL_CLI:-novel-cli}"
 
 INPUT=$(cat)
 FILE_PATH=$(printf '%s' "$INPUT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))" 2>/dev/null) || exit 0

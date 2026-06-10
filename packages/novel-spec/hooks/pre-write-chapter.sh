@@ -6,7 +6,7 @@
 
 set -e
 
-NOVEL_CLI="${NOVEL_CLI:-scripts/novel-cli}"
+NOVEL_CLI="${NOVEL_CLI:-novel-cli}"
 MAX_CHARS=8500
 
 # 从 hook 输入 JSON 提取写入路径（stdin）

@@ -5,7 +5,6 @@ const path = require("path");
 
 const target = process.argv[2] || process.cwd();
 const specDir = path.resolve(__dirname);
-const cliPkg = path.resolve(specDir, "..", "novel-lifecycle-cli");
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -105,10 +104,28 @@ function copyTemplates() {
   }
 }
 
-// ── 5.6 delegate to hard-layer installer ─────────────────────────────────────
+// ── 5.6 init DB via novel-cli (resolve package bin; fall back to PATH) ─────────
 
-function installHardLayer() {
-  execFileSync("node", [path.join(cliPkg, "install-cli.js"), target], { stdio: "inherit" });
+function resolveNovelCli() {
+  // Prefer the lifecycle-cli package's bin so init works in the monorepo too,
+  // where `novel-cli` may not yet be linked onto PATH. Fall back to global PATH.
+  const candidates = [
+    path.resolve(specDir, "..", "novel-lifecycle-cli", "bin", "novel-cli"),
+  ];
+  try {
+    candidates.push(path.join(
+      path.dirname(require.resolve("@novel-generator/lifecycle-cli/package.json")),
+      "bin", "novel-cli"));
+  } catch {}
+  return candidates.find((p) => fs.existsSync(p)) || null;
+}
+
+function initDb() {
+  const dbPath = path.join(target, "index", "novel.db");
+  fs.mkdirSync(path.join(target, "index"), { recursive: true });
+  const cli = resolveNovelCli();
+  if (cli) execFileSync(cli, ["init", "--db-path", dbPath], { stdio: "inherit" });
+  else execFileSync("novel-cli", ["init", "--db-path", dbPath], { stdio: "inherit" });
 }
 
 // ── main ──────────────────────────────────────────────────────────────────────
@@ -117,9 +134,9 @@ checkPython();
 copySoftLayer();
 registerHooks();
 copyTemplates();
-installHardLayer();
+initDb();
 
 console.log(`\nnovel-spec installed to ${target}`);
 console.log("  .claude/{skills,agents,hooks,rules,settings.json}");
-console.log("  scripts/novel-cli  +  index/novel.db");
+console.log("  index/novel.db");
 console.log("  CLAUDE.md  +  introduce.md (if not already present)");

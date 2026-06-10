@@ -18,7 +18,7 @@ description: 写一章正文——prose start 到 prose end 的完整写作流�
 ### 1. 开章
 
 ```
-scripts/novel-cli prose start <chapter_id>
+novel-cli prose start <chapter_id>
 ```
 
 输出本章 presummary 三档契约（must / may_deviate / encourage_surprise）。
@@ -26,8 +26,8 @@ scripts/novel-cli prose start <chapter_id>
 ### 2. 加载上下文
 
 ```
-scripts/novel-cli bible core
-scripts/novel-cli bible active
+novel-cli bible core
+novel-cli bible active
 ```
 
 > PreToolUse hook 写章文件时自动注入本章 threads + 到期预警 + 重激活快照（无需手动）
@@ -43,11 +43,11 @@ scripts/novel-cli bible active
 ### 5. 逐相登记
 
 ```
-scripts/novel-cli prose phase <chapter_id> birth
+novel-cli prose phase <chapter_id> birth
 # ... 写作中，tiandao-monitor 在旁监测（可按需委派）...
-scripts/novel-cli prose phase <chapter_id> dwell
-scripts/novel-cli prose phase <chapter_id> decay
-scripts/novel-cli prose phase <chapter_id> death
+novel-cli prose phase <chapter_id> dwell
+novel-cli prose phase <chapter_id> decay
+novel-cli prose phase <chapter_id> death
 ```
 
 ### 6. 委派 mainplot-landing-verifier（必须，不可跳过）
@@ -59,7 +59,7 @@ scripts/novel-cli prose phase <chapter_id> death
 ### 7. 收章
 
 ```
-scripts/novel-cli prose end <chapter_id>
+novel-cli prose end <chapter_id>
 ```
 
 CLI 读裁决位：

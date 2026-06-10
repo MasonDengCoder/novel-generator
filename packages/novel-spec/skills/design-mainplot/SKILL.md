@@ -20,7 +20,7 @@ description: 设计主线节点（大势定数）——逐节点入库并标注 
 
 2. **逐节点入库**：
    ```
-   scripts/novel-cli stage add-mainplot-node \
+   novel-cli stage add-mainplot-node \
      --content "<节点描述>" \
      --is-immutable <1|0> \
      --order <排序序号>
@@ -32,7 +32,7 @@ description: 设计主线节点（大势定数）——逐节点入库并标注 
 
 5. **推进阶段**：
    ```
-   scripts/novel-cli stage complete main-plot
+   novel-cli stage complete main-plot
    ```
 
 6. 提示下一步：`/design-destiny` 设计旁门（支线/伏笔/爽点/承诺）。

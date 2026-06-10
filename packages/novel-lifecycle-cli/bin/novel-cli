@@ -3,7 +3,7 @@ import importlib.util
 import os
 import sys
 
-_BIN_DIR = os.path.dirname(os.path.abspath(__file__))
+_BIN_DIR = os.path.dirname(os.path.realpath(__file__))
 # src/ may sit as a sibling (repo: bin/../src) or as a child of the entry dir
 # (installed top-level copy: scripts/novel-cli -> scripts/src). Resolve both.
 _SRC_DIR = next(
