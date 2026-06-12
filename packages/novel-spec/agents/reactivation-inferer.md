@@ -15,20 +15,19 @@ tools: Read, Bash
 ## 执行步骤
 
 1. 取角色完整 arc 历史：`novel-cli arc list --emergent-id <emergent_id>`
-2. 取四极边界（推测不得超出）：`novel-cli stage list-boundaries`
-3. 读当前章 presummary（场景上下文）：`novel-cli presummary get <chapter_id>`
+2. 取四极边界（推测不得超出）：`novel-cli world-boundary list`
+3. 读当前章 presummary（场景上下文）：`novel-cli presummary get --chapter-id <chapter_id>`
 4. 基于以上内容推测：
    - 角色在重出场时的当前心理/物理/关系状态
    - 与上次出场（`last_active_chapter_id`）之间发生了什么（场外推断）
    - 当前态对本章叙事的影响
 5. 写推测快照：
    ```
-   novel-cli arc add \
+   novel-cli arc add-inferred \
      --emergent-id <emergent_id> \
      --stage "<推测的弧线阶段>" \
      --summary "<当前推测态，≤200字>" \
-     --is-inferred 1 \
-     --inferred-at-chapter-id <chapter_id>
+     --chapter-id <chapter_id>
    ```
 
 ## 约束

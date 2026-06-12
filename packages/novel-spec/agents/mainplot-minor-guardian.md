@@ -18,7 +18,7 @@ tools: Read, Bash
 - 对每个高嫌疑节点输出：节点 ID、内容摘要、过标理由，供作者确认是否降级
 
 ```
-novel-cli stage list-mainplot-nodes --immutable-only
+novel-cli mainplot list --immutable-only
 ```
 
 逐条语义评估，输出嫌疑清单（不写库，仅供作者决策）。

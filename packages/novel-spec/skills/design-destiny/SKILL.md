@@ -34,7 +34,14 @@ description: 设计旁门——支线、伏笔、爽点、承诺，构成主线�
 
 3. **展示全貌** — 输出旁门台账概览：
    ```
-   novel-cli db list-all-destiny
+   novel-cli db list --type subplot
+   novel-cli db list --type foreshadowing
+   novel-cli db list --type payoff
+   novel-cli db list --type promise
    ```
 
-4. 确认完整，提示下一步：`/weave-fate` 开始编织卷/事件/章结构。
+4. 确认完整，推进阶段，提示下一步：
+   ```
+   novel-cli stage complete destiny
+   ```
+   提示：`/weave-fate` 开始编织卷/事件/章结构。

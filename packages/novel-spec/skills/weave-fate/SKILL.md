@@ -68,8 +68,9 @@ novel-cli weave chapter \
 
 ### 生成章预摘要（presummary）
 
+LLM 根据章节目标起草约束 JSON，然后：
 ```
-novel-cli presummary generate <chapter_id>
+novel-cli presummary set --chapter-id <chapter_id> --constraints '<JSON>'
 ```
 
 编织结束后提示：通过 `/write-prose` 开始正文写作。

@@ -15,6 +15,7 @@ def main(argv):
     p_list = sub.add_parser("list")
     p_list.add_argument("--status", default=None)
     p_list.add_argument("--scored", action="store_true")
+    p_list.add_argument("--volume-id", type=int, default=None)
 
     p_score = sub.add_parser("score")
     p_score.add_argument("--id", type=int, required=True)
@@ -28,6 +29,7 @@ def main(argv):
     p_disp.add_argument("--id", type=int, required=True)
     p_disp.add_argument("--disposition", required=True)
     p_disp.add_argument("--level", required=True)
+    p_disp.add_argument("--reason", default=None)
 
     args = parser.parse_args(argv[1:])
 
@@ -42,12 +44,21 @@ def main(argv):
         conds = []
         params = []
         if args.status:
-            conds.append("status=?")
+            conds.append("e.status=?")
             params.append(args.status)
         if args.scored:
-            conds.append("score IS NOT NULL")
+            conds.append("e.score IS NOT NULL")
         where = (" WHERE " + " AND ".join(conds)) if conds else ""
-        rows = db.query("SELECT * FROM emergent" + where, tuple(params))
+        if args.volume_id is not None:
+            # 涌现 → chapters → sections → events.volume_id 过滤
+            vol_cond = "e.created_chapter_id IN (" \
+                "SELECT c.id FROM chapters c " \
+                "JOIN sections s ON c.section_id=s.id " \
+                "JOIN events ev ON s.event_id=ev.id " \
+                "WHERE ev.volume_id=?)"
+            where = (where + " AND " + vol_cond) if where else (" WHERE " + vol_cond)
+            params.append(args.volume_id)
+        rows = db.query("SELECT e.* FROM emergent e" + where, tuple(params))
         db.emit_json(rows)
 
     elif args.action == "score":
@@ -62,10 +73,16 @@ def main(argv):
         db.emit_json({"ok": True, "id": args.id, "score": composite})
 
     elif args.action == "update-disposition":
-        db.execute(
-            "UPDATE emergent SET disposition=?, disposition_level=? WHERE id=?",
-            (args.disposition, args.level, args.id),
-        )
+        if args.reason is not None:
+            db.execute(
+                "UPDATE emergent SET disposition=?, disposition_level=?, disposition_reason=? WHERE id=?",
+                (args.disposition, args.level, args.reason, args.id),
+            )
+        else:
+            db.execute(
+                "UPDATE emergent SET disposition=?, disposition_level=? WHERE id=?",
+                (args.disposition, args.level, args.id),
+            )
         db.emit_json({"ok": True, "id": args.id})
 
     else:

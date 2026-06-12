@@ -23,10 +23,10 @@ description: 设计四极——世界的硬/模糊边界，作为整个创作的
 
 2. **逐条入库**（每条边界一次）：
    ```
-   novel-cli stage add-boundary \
+   novel-cli world-boundary add \
      --type "<分类：能力|道德|物理|社会|其他>" \
      --content "<边界描述>" \
-     --is-fuzzy <0|1>
+     --fuzzy <0|1>
    ```
 
 3. **委派 `world-boundary-validator`** subagent 校验完整性和一致性

@@ -12,6 +12,8 @@ def main(argv):
     p_add.add_argument("--content", required=True)
     p_add.add_argument("--fuzzy", type=int, default=0)
 
+    sub.add_parser("list")
+
     args = parser.parse_args(argv[1:])
 
     if args.action == "add":
@@ -20,6 +22,11 @@ def main(argv):
             (args.type, args.content, args.fuzzy),
         )
         db.emit_json(db.query("SELECT * FROM world_boundaries WHERE id=?", (bid,))[0])
+
+    elif args.action == "list":
+        rows = db.query("SELECT * FROM world_boundaries")
+        db.emit_json(rows)
+
     else:
         parser.print_help()
         sys.exit(1)

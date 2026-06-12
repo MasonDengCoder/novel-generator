@@ -30,6 +30,17 @@ def main(argv):
     p_cverd.add_argument("--drift-note", default=None)
     p_cverd.add_argument("--target-achieved", type=int, default=None)
 
+    p_lconv = sub.add_parser("list-convergence")
+    p_lconv.add_argument("--volume-id", type=int, required=True)
+
+    p_showv = sub.add_parser("show-volume")
+    p_showv.add_argument("volume_id", type=int)
+
+    p_levt = sub.add_parser("list-events")
+    p_levt.add_argument("--volume-id", type=int, required=True)
+    p_levt.add_argument("--has-node-id", action="store_true")
+    p_levt.add_argument("--not-critical", action="store_true")
+
     args = parser.parse_args(argv[1:])
 
     if args.action == "close-event":
@@ -142,6 +153,33 @@ def main(argv):
             db.execute("UPDATE volumes SET target_achieved=? WHERE id=?", (args.target_achieved, vid))
         db.emit_json({"ok": True, "great_cycle_id": gc_id, "volume_id": vid,
                       "verdict": args.verdict})
+
+    elif args.action == "list-convergence":
+        rows = db.query(
+            "SELECT * FROM target_convergence_signal WHERE volume_id=?",
+            (args.volume_id,),
+        )
+        db.emit_json(rows)
+
+    elif args.action == "show-volume":
+        vid = args.volume_id
+        vol = db.query("SELECT * FROM volumes WHERE id=?", (vid,))
+        if not vol:
+            db.emit_error(f"volume {vid} not found")
+        events = db.query("SELECT * FROM events WHERE volume_id=?", (vid,))
+        gc = db.query("SELECT * FROM great_cycles WHERE volume_id=?", (vid,))
+        db.emit_json({"volume": vol[0], "events": events, "great_cycles": gc})
+
+    elif args.action == "list-events":
+        conds = ["volume_id=?"]
+        params = [args.volume_id]
+        if args.has_node_id:
+            conds.append("mainplot_node_id IS NOT NULL")
+        if args.not_critical:
+            conds.append("is_mainplot_critical=0")
+        where = " WHERE " + " AND ".join(conds)
+        rows = db.query("SELECT * FROM events" + where, tuple(params))
+        db.emit_json(rows)
 
     else:
         parser.print_help()

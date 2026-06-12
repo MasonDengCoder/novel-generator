@@ -13,6 +13,14 @@ def _ensure_stages():
             db.execute("INSERT INTO stage_progress (stage_name, status) VALUES (?,?)", (s, "pending"))
 
 
+def _ensure_stage_data_table():
+    """Create stage_data table if not exists (stores key-value pairs for stage artifacts)."""
+    db.execute(
+        "CREATE TABLE IF NOT EXISTS stage_data "
+        "(key TEXT PRIMARY KEY, content TEXT NOT NULL)"
+    )
+
+
 def main(argv):
     parser = argparse.ArgumentParser()
     sub = parser.add_subparsers(dest="action")
@@ -22,9 +30,20 @@ def main(argv):
 
     sub.add_parser("list")
 
+    p_set_insp = sub.add_parser("set-inspiration")
+    p_set_insp.add_argument("--content", required=True)
+
+    sub.add_parser("get-inspiration")
+
+    p_set_prem = sub.add_parser("set-premise")
+    p_set_prem.add_argument("--content", required=True)
+
+    sub.add_parser("get-premise")
+
     args = parser.parse_args(argv[1:])
 
     _ensure_stages()
+    _ensure_stage_data_table()
 
     if args.action == "list":
         rows = db.query("SELECT stage_name, status, completed_at FROM stage_progress")
@@ -56,6 +75,34 @@ def main(argv):
             (now, stage),
         )
         db.emit_json({"ok": True, "stage": stage, "completed_at": now})
+    elif args.action == "set-inspiration":
+        db.execute(
+            "INSERT INTO stage_data (key, content) VALUES ('inspiration', ?) "
+            "ON CONFLICT(key) DO UPDATE SET content=excluded.content",
+            (args.content,),
+        )
+        db.emit_json({"ok": True, "key": "inspiration"})
+
+    elif args.action == "get-inspiration":
+        rows = db.query("SELECT content FROM stage_data WHERE key='inspiration'")
+        if not rows:
+            db.emit_error("inspiration not set")
+        db.emit_json({"key": "inspiration", "content": rows[0]["content"]})
+
+    elif args.action == "set-premise":
+        db.execute(
+            "INSERT INTO stage_data (key, content) VALUES ('premise', ?) "
+            "ON CONFLICT(key) DO UPDATE SET content=excluded.content",
+            (args.content,),
+        )
+        db.emit_json({"ok": True, "key": "premise"})
+
+    elif args.action == "get-premise":
+        rows = db.query("SELECT content FROM stage_data WHERE key='premise'")
+        if not rows:
+            db.emit_error("premise not set")
+        db.emit_json({"key": "premise", "content": rows[0]["content"]})
+
     else:
         parser.print_help()
         sys.exit(1)

@@ -20,9 +20,9 @@ description: 设计主线节点（大势定数）——逐节点入库并标注 
 
 2. **逐节点入库**：
    ```
-   novel-cli stage add-mainplot-node \
+   novel-cli mainplot add-node \
      --content "<节点描述>" \
-     --is-immutable <1|0> \
+     --immutable <1|0> \
      --order <排序序号>
    ```
 

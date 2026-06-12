@@ -64,7 +64,8 @@ CREATE TABLE IF NOT EXISTS emergent (
     score_theme REAL,
     score_surprise REAL,
     disposition_level TEXT,
-    scored_at_chapter_id INTEGER
+    scored_at_chapter_id INTEGER,
+    disposition_reason TEXT
 );
 
 CREATE TABLE IF NOT EXISTS arc (

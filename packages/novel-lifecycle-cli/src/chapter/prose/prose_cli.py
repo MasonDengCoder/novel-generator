@@ -25,6 +25,9 @@ def main(argv):
     p_res = sub.add_parser("residue")
     p_res.add_argument("residue_action")  # "add"
 
+    p_lr = sub.add_parser("list-residue")
+    p_lr.add_argument("--chapter-id", type=int, required=True)
+
     args, remaining = parser.parse_known_args(argv[1:])
 
     now = datetime.datetime.utcnow().isoformat()
@@ -98,6 +101,13 @@ def main(argv):
             db.emit_json({"ok": True, "id": rid})
         else:
             db.emit_error(f"Unknown residue action: {args.residue_action}")
+
+    elif args.action == "list-residue":
+        rows = db.query(
+            "SELECT * FROM chapter_residue WHERE chapter_id=?",
+            (args.chapter_id,),
+        )
+        db.emit_json(rows)
 
     else:
         parser.print_help()

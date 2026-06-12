@@ -21,6 +21,11 @@ def main(argv):
     p_upd.add_argument("--reason", required=True)
     p_upd.add_argument("--verified-by", required=True)
 
+    p_uc = sub.add_parser("update-constraint")
+    p_uc.add_argument("--chapter-id", type=int, required=True)
+    p_uc.add_argument("--constraint-idx", type=int, required=True)
+    p_uc.add_argument("--content", required=True)
+
     args = parser.parse_args(argv[1:])
 
     if args.action == "set":
@@ -56,6 +61,25 @@ def main(argv):
         constraints[idx]["satisfied"] = args.satisfied
         constraints[idx]["verdict_reason"] = args.reason
         constraints[idx]["verified_by"] = args.verified_by
+
+        db.execute(
+            "UPDATE presummary SET constraints=? WHERE chapter_id=?",
+            (json.dumps(constraints, ensure_ascii=False), args.chapter_id),
+        )
+        db.emit_json({"ok": True, "chapter_id": args.chapter_id, "constraint_idx": idx})
+
+    elif args.action == "update-constraint":
+        rows = db.query("SELECT constraints FROM presummary WHERE chapter_id=?", (args.chapter_id,))
+        if not rows:
+            db.emit_error(f"presummary not found for chapter {args.chapter_id}")
+
+        import json
+        constraints = json.loads(rows[0]["constraints"])
+        idx = args.constraint_idx
+        if idx < 0 or idx >= len(constraints):
+            db.emit_error(f"constraint index {idx} out of range")
+
+        constraints[idx]["content"] = args.content
 
         db.execute(
             "UPDATE presummary SET constraints=? WHERE chapter_id=?",

@@ -14,7 +14,7 @@ description: 处置涌现实体（遁去其一）——cycle close-volume 必经
 | 章标记 | `prose residue add --type pending_escalation` | 章级发现，暂记 |
 | 事件轻修 | `emergent update-disposition --level event` | 局部调整，不影响主线 |
 | 卷系统处置 | `emergent update-disposition --level volume` | 本技能执行层级 |
-| 周期归档 | `finalize dispose-emergent` | 全书影响，封档时处理 |
+| 周期归档 | `finalize dispose --content "<归档内容>"` | 全书影响，封档时处理 |
 
 ## 步骤
 
@@ -41,7 +41,7 @@ novel-cli emergent update-disposition \
 ### 3. 修订受影响章节的 presummary（若处置改变后续约束）
 
 ```
-novel-cli db update presummary \
+novel-cli presummary update-constraint \
   --chapter-id <id> \
   --constraint-idx <idx> \
   --content "<修订后的约束内容>"
