@@ -50,7 +50,7 @@ novel-cli monitor signal \
 
 ## 触发规则
 
-按本章 `chapter_threads` 条目数（`novel-cli context chapter <id> --count-only`）：
+按本章 `chapter_threads` 条目数（`novel-cli context chapter <id>` 返回 JSON 数组的长度）：
 
 | 条目数 | 复杂度 | 监测深度 |
 |--------|-------|---------|

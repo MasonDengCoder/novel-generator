@@ -1,5 +1,11 @@
 {
   "name": "novel-generator",
   "private": true,
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "verify-isolation": "node scripts/verify-layer-isolation.js",
+    "sync-cli-manual": "node scripts/sync-cli-manual.js"
+  }
 }
