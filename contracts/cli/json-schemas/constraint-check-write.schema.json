@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "description": "JSON 输出结构（批量写入检查结果成功）。",
+  "properties": {
+    "message": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "success": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "message",
+    "schemaVersion",
+    "success"
+  ],
+  "title": "CheckSuccessJson",
+  "type": "object"
+}

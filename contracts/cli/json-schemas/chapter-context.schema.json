@@ -1,0 +1,240 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://novel-generator/contracts/cli/json-schemas/chapter-context.schema.json",
+  "title": "novel chapter context <chapter-id> --view <view> --budget <n> --json output",
+  "description": "Stable structured JSON output of `novel chapter context <chapter-id> --view <view> --budget <n> --json`. Renders CLI canonical Chapter Context Packet (P0/P1 subset with data backing + audit + overflow). Source: chapter-context spec, design D1-D7. Controlled view names reference contracts/cli/views-scopes.md §A group 4. Budget is token estimate (character approximation, no tokenizer dependency).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "chapterId",
+    "view",
+    "budget",
+    "fragments",
+    "audit",
+    "overflow"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "description": "CLI Contract schema version. Decimal integer string. Current: \"9\"."
+    },
+    "chapterId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Target chapter ID (e.g. \"chapter-001\")."
+    },
+    "view": {
+      "type": "string",
+      "enum": [
+        "writer",
+        "verifier",
+        "repair"
+      ],
+      "description": "Controlled view name (views-scopes.md §A group 4). Differentiates fragment filtering in the service layer; renderer is view-agnostic."
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "limit",
+        "used"
+      ],
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Budget limit from --budget (token estimate, character approximation)."
+        },
+        "used": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Token estimate actually consumed by filled fragments (character approximation)."
+        }
+      },
+      "description": "Budget accounting for this packet."
+    },
+    "fragments": {
+      "type": "array",
+      "description": "Filled context fragments (P0/P1 subset with data backing). Empty when chapter has no backing entities.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "priority",
+          "sourceRefs",
+          "content"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Fragment identifier (stable within this packet, e.g. \"p0-hard-constraints\", \"p1-thread-bindings\")."
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Fragment type tag (e.g. \"hard-constraint\", \"verdict\", \"rule-check\", \"chapter-state\", \"thread-binding\", \"mainplot-node\", \"volume-goal\", \"previous-residue\")."
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "P0",
+              "P1"
+            ],
+            "description": "Context priority. P0 (Authority/Gate, incompressible), P1 (Chapter Contract minimum + key bindings). Layers without data backing are omitted, not compressed."
+          },
+          "sourceRefs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "description": "Stable entity reference, composite-key string form (see entity-ids-sourcerefs.md). Patterns: constraint:<type>:<scope>:<name>, verdict:<chapter-id>:<node-id>, chapter:<chapter-id>, thread:<thread-id>, mainplot:<node-id>, volume_goal:<volume-id>:<goal-id>."
+            },
+            "description": "Stable entity references; no internal paths or rowids."
+          },
+          "content": {
+            "type": "string",
+            "description": "Fragment content (plain text, may be summary-form after compression). Empty string allowed."
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "compressed",
+        "failures"
+      ],
+      "properties": {
+        "compressed": {
+          "type": "array",
+          "description": "Fragments compressed (full→summary) to fit budget. Empty when none compressed.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "from",
+              "to",
+              "reason",
+              "sourceRefs"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "from": {
+                "type": "string",
+                "enum": [
+                  "full",
+                  "summary"
+                ]
+              },
+              "to": {
+                "type": "string",
+                "enum": [
+                  "full",
+                  "summary"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sourceRefs": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                },
+                "description": "Stable entity references of the compressed fragment."
+              }
+            }
+          }
+        },
+        "failures": {
+          "type": "array",
+          "description": "Budget-exceeded failures when P0/P1_min overruns budget. Non-empty when exit code 3 + context_budget_exceeded. Empty on success.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "layer",
+              "estimatedUsed",
+              "reason"
+            ],
+            "properties": {
+              "layer": {
+                "type": "string",
+                "enum": [
+                  "P0",
+                  "P1_min"
+                ]
+              },
+              "estimatedUsed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      },
+      "description": "Audit records of compression and budget failures."
+    },
+    "overflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "omitted"
+      ],
+      "properties": {
+        "omitted": {
+          "type": "array",
+          "description": "Layers omitted (no data backing or budget-exhausted). Non-empty includes chapter-contract/snapshot layers without entity tables (reason=\"no_data_backing_table\").",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "reason",
+              "sourceRefs"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "enum": [
+                  "no_data_backing_table",
+                  "budget_exhausted"
+                ],
+                "description": "Omission reason."
+              },
+              "sourceRefs": {
+                "type": "array",
+                "minItems": 0,
+                "items": {
+                  "type": "string"
+                },
+                "description": "Stable entity references if applicable; empty array when no entity backing."
+              }
+            }
+          }
+        }
+      },
+      "description": "Overflow records of omitted layers."
+    }
+  }
+}

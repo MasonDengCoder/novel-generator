@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "VolumeInfoJson": {
+      "additionalProperties": false,
+      "description": "卷信息 JSON 输出结构。",
+      "properties": {
+        "archivedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "order": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "schemaVersion": {
+          "type": "string"
+        },
+        "sealedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "volumeId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "createdAt",
+        "name",
+        "order",
+        "schemaVersion",
+        "status",
+        "updatedAt",
+        "volumeId"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "卷列表 JSON 输出结构。",
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "volumes": {
+      "items": {
+        "$ref": "#/definitions/VolumeInfoJson"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "volumes"
+  ],
+  "title": "VolumeListJson",
+  "type": "object"
+}

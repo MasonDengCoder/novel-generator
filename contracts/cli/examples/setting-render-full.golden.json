@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "9",
+  "view": "full",
+  "settings": [
+    {
+      "name": "four-poles-limit",
+      "value": "不可穿越时空",
+      "createdAt": "2026-07-21T08:20:12Z",
+      "sourceRefs": [
+        "setting:four-poles-limit"
+      ]
+    },
+    {
+      "name": "intro",
+      "value": "这是一个奇幻世界",
+      "createdAt": "2026-07-21T08:20:11Z",
+      "sourceRefs": [
+        "setting:intro"
+      ]
+    },
+    {
+      "name": "style",
+      "value": "叙事冷峻",
+      "createdAt": "2026-07-21T08:20:12Z",
+      "sourceRefs": [
+        "setting:style"
+      ]
+    },
+    {
+      "name": "world-setting",
+      "value": "魔法体系：元素魔法",
+      "createdAt": "2026-07-21T08:20:11Z",
+      "sourceRefs": [
+        "setting:world-setting"
+      ]
+    }
+  ]
+}

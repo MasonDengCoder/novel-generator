@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "9",
+  "projectName": "demo",
+  "dbPath": ".novel/novel.db",
+  "createdAt": "2026-01-01T00:00:00Z",
+  "counts": {
+    "chapters": 0,
+    "volumes": 0,
+    "settings": 0,
+    "constraints": 0,
+    "mainplotNodes": 0
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "9",
+  "id": "chapter-001",
+  "title": "第一章：起源",
+  "content": "# 第一章：起源\n\n这是章节正文的第一段。\n\n这是第二段。",
+  "contentHash": "03a888c81f8079a1e24570915005a017b204a85a54cbbf81ad5f4c6cd74d08a7",
+  "wordCount": 15,
+  "status": "drafting",
+  "createdAt": "2026-06-29T08:00:00Z",
+  "updatedAt": "2026-06-29T09:30:00Z"
+}

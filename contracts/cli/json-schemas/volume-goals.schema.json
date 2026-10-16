@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "VolumeGoalJson": {
+      "additionalProperties": false,
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "isMandatory": {
+          "type": "boolean"
+        },
+        "mainplotNodeId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "id",
+        "isMandatory",
+        "mainplotNodeId"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "卷目标 JSON 输出结构。",
+  "properties": {
+    "goals": {
+      "items": {
+        "$ref": "#/definitions/VolumeGoalJson"
+      },
+      "type": "array"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "volumeId": {
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "goals",
+    "schemaVersion",
+    "volumeId"
+  ],
+  "title": "VolumeGoalsJson",
+  "type": "object"
+}

@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "description": "涌现 JSON 输出结构。",
+  "properties": {
+    "archivedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "chapterId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "decidedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "decision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "decisionReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "discoveredAt": {
+      "type": "string"
+    },
+    "executedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "executionNote": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "executionTarget": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "ratedAt": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "rating": {
+      "format": "int64",
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "ratingReason": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "volumeId": {
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "createdAt",
+    "description",
+    "discoveredAt",
+    "id",
+    "schemaVersion",
+    "status",
+    "title",
+    "updatedAt",
+    "volumeId"
+  ],
+  "title": "EmergenceJson",
+  "type": "object"
+}

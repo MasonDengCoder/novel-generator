@@ -1,0 +1,273 @@
+[package]
+name = "novel-cli"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "novel CLI: 硬层、SQLite、状态机、事务、命令"
+
+[[bin]]
+name = "novel"
+path = "src/main.rs"
+
+[[test]]
+name = "e2e"
+path = "../../contracts/cli/contract-tests/e2e.rs"
+harness = true
+
+[[test]]
+name = "setting_commands"
+path = "../../contracts/cli/contract-tests/setting_commands.rs"
+harness = true
+
+[[test]]
+name = "constraint_commands"
+path = "../../contracts/cli/contract-tests/constraint_commands.rs"
+harness = true
+
+# s05-contract-test-coverage：contract_constraint_check 从 crates/novel-cli/tests/ 归位至契约测试目录
+[[test]]
+name = "contract_constraint_check"
+path = "../../contracts/cli/contract-tests/contract_constraint_check.rs"
+harness = true
+
+[[test]]
+name = "volume_commands"
+path = "../../contracts/cli/contract-tests/volume_commands.rs"
+harness = true
+
+[[test]]
+name = "verdict"
+path = "../../contracts/cli/contract-tests/verdict.rs"
+harness = true
+
+[[test]]
+name = "state_transition"
+path = "../../contracts/cli/contract-tests/state_transition.rs"
+harness = true
+
+# chapter-context-packet 切片契约测试（三 view / 预算超限 / 阻断场景）。
+[[test]]
+name = "chapter_context_commands"
+path = "../../contracts/cli/contract-tests/chapter_context_commands.rs"
+harness = true
+
+# s06-destiny-weaving 单元测试（位于 tests/ 子目录，需显式声明 path）
+[[test]]
+name = "mainplot_repository_test"
+path = "tests/repository/mainplot_repository_test.rs"
+harness = true
+
+[[test]]
+name = "thread_repository_test"
+path = "tests/repository/thread_repository_test.rs"
+harness = true
+
+[[test]]
+name = "emergence_repository_test"
+path = "tests/repository/emergence_repository_test.rs"
+harness = true
+
+# s06-destiny-weaving service 层单元测试
+[[test]]
+name = "mainplot_service_test"
+path = "tests/service/mainplot_service_test.rs"
+harness = true
+
+[[test]]
+name = "thread_service_test"
+path = "tests/service/thread_service_test.rs"
+harness = true
+
+[[test]]
+name = "emergence_service_test"
+path = "tests/service/emergence_service_test.rs"
+harness = true
+
+# s06-destiny-weaving validator 集成测试
+[[test]]
+name = "mainplot_validator_test"
+path = "tests/validator/mainplot_validator_test.rs"
+harness = true
+
+[[test]]
+name = "thread_validator_test"
+path = "tests/validator/thread_validator_test.rs"
+harness = true
+
+[[test]]
+name = "emergence_state_validator_test"
+path = "tests/validator/emergence_state_validator_test.rs"
+harness = true
+
+# s06-destiny-weaving 集成测试（真实 CLI 子进程）
+[[test]]
+name = "mainplot_integration_test"
+path = "tests/integration/mainplot_integration_test.rs"
+harness = true
+
+[[test]]
+name = "thread_integration_test"
+path = "tests/integration/thread_integration_test.rs"
+harness = true
+
+[[test]]
+name = "emergence_integration_test"
+path = "tests/integration/emergence_integration_test.rs"
+harness = true
+
+# s06-destiny-weaving 契约测试（位于 contracts/cli/contract-tests/）
+[[test]]
+name = "mainplot_contract_test"
+path = "../../contracts/cli/contract-tests/mainplot_contract_test.rs"
+harness = true
+
+[[test]]
+name = "thread_contract_test"
+path = "../../contracts/cli/contract-tests/thread_contract_test.rs"
+harness = true
+
+[[test]]
+name = "emergence_contract_test"
+path = "../../contracts/cli/contract-tests/emergence_contract_test.rs"
+harness = true
+
+# s06-destiny-weaving 引用完整性测试（FK 约束验证）
+[[test]]
+name = "referential_integrity_test"
+path = "tests/integration/referential_integrity_test.rs"
+harness = true
+
+# s06-destiny-weaving 端到端测试
+[[test]]
+name = "destiny_weaving_e2e"
+path = "tests/e2e/destiny_weaving_e2e.rs"
+harness = true
+
+# s07-archive-and-export 契约测试（export / verify 命令）
+[[test]]
+name = "export_commands"
+path = "../../contracts/cli/contract-tests/export_commands.rs"
+harness = true
+
+[[test]]
+name = "verify_commands"
+path = "../../contracts/cli/contract-tests/verify_commands.rs"
+harness = true
+
+# s07-archive-and-export 端到端测试
+[[test]]
+name = "archive_export_e2e"
+path = "tests/e2e/archive_export_e2e.rs"
+harness = true
+
+[[test]]
+name = "chapter-context_gen"
+path = "../../contracts/cli/generated/chapter-context.gen.rs"
+harness = true
+
+[[test]]
+name = "chapter-lifecycle_gen"
+path = "../../contracts/cli/generated/chapter-lifecycle.gen.rs"
+harness = true
+
+[[test]]
+name = "setting-commands_gen"
+path = "../../contracts/cli/generated/setting-commands.gen.rs"
+harness = true
+
+[[test]]
+name = "constraint-commands_gen"
+path = "../../contracts/cli/generated/constraint-commands.gen.rs"
+harness = true
+
+[[test]]
+name = "rule-checking_gen"
+path = "../../contracts/cli/generated/rule-checking.gen.rs"
+harness = true
+
+[[test]]
+name = "volume-sealing_gen"
+path = "../../contracts/cli/generated/volume-sealing.gen.rs"
+harness = true
+
+[[test]]
+name = "volume-goals_gen"
+path = "../../contracts/cli/generated/volume-goals.gen.rs"
+harness = true
+
+[[test]]
+name = "volume-lifecycle_gen"
+path = "../../contracts/cli/generated/volume-lifecycle.gen.rs"
+harness = true
+
+[[test]]
+name = "project-lifecycle_gen"
+path = "../../contracts/cli/generated/project-lifecycle.gen.rs"
+harness = true
+
+[[test]]
+name = "state-transition-guards_gen"
+path = "../../contracts/cli/generated/state-transition-guards.gen.rs"
+harness = true
+
+[[test]]
+name = "content-integrity_gen"
+path = "../../contracts/cli/generated/content-integrity.gen.rs"
+harness = true
+
+[[test]]
+name = "chapter-state-machine_gen"
+path = "../../contracts/cli/generated/chapter-state-machine.gen.rs"
+harness = true
+
+[[test]]
+name = "thread-management_gen"
+path = "../../contracts/cli/generated/thread-management.gen.rs"
+harness = true
+
+[[test]]
+name = "mainplot-node-management_gen"
+path = "../../contracts/cli/generated/mainplot-node-management.gen.rs"
+harness = true
+
+[[test]]
+name = "emergence-management_gen"
+path = "../../contracts/cli/generated/emergence-management.gen.rs"
+harness = true
+
+[[test]]
+name = "verdict-management_gen"
+path = "../../contracts/cli/generated/verdict-management.gen.rs"
+harness = true
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "1"
+# contract-governance-02-error-enum-gen：strum 作为编译期过程宏依赖（EnumIter + IntoStaticStr + serialize 注解），
+# 把 ExitCode/ErrorCode enum 提升为错误契约类型化源，供 dev-only spec-gen 遍历变体生成 exit-codes/error-codes 表。
+# 仅启用 `derive` feature（编译期过程宏 re-export，引入 strum_macros），不启用运行期 trait
+# （AsRefStr/Display/EnumString 属 strum 运行期 trait，本切片不用，运行期二进制不链接其代码）。
+strum = { version = "0.26", features = ["derive"] }
+strum_macros = "0.26"
+anyhow = "1"
+# contract-governance-03-struct-schema-gen：schemars 0.8 作为编译期过程宏依赖，
+# 把 renderers/domain/services/repositories/errors 的 Serialize struct 提升为 JSON Schema
+# 结构契约源，供 dev-only spec-gen 遍历派生 schema 生成 contracts/cli/json-schemas/*.json。
+# 仅 `derive` feature（编译期 JsonSchema 过程宏），schemars 不进入 novel CLI 运行期热路径
+# （CLI 不在运行期生成 schema，schema 生成由 spec-gen 在 dev/CI 时完成）。
+schemars = { version = "0.8", features = ["derive"] }
+time = { version = "0.3", features = ["formatting", "macros", "parsing"] }
+comfy-table = { version = "7.1", default-features = false }
+sha2 = "0.10"
+uuid = { version = "1", features = ["v4"] }
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"

@@ -1,0 +1,30 @@
+# CI 门禁（contract-registry-v2-05 治理切片）。
+#
+# 设计约束（design D4）：CI 只调用仓库内可本地复跑的既有命令，不在 CI 内联第二套校验逻辑——
+# 保证 spec-gen 的单一校验核心是唯一权威，本地 `scripts/check-generated-drift.sh` 与 CI 行为一致。
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  contract-drift:
+    name: 契约生成物漂移门禁
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      # 生成物漂移门禁：手改生成物 / 源改未重生成 / 手写生成物标记破坏 / 绕过注册表
+      # （未登记错误 ID、clap↔注册表↔ErrorCatalog 交叉不一致）——均由 spec-gen check 单一核心覆盖。
+      - name: 生成物漂移 + 注册表交叉一致性
+        run: ./scripts/check-generated-drift.sh
+
+  test:
+    name: 全量测试
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: cargo test
+        run: cargo test -p novel-cli

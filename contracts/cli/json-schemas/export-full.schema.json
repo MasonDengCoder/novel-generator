@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ExportChapterBody": {
+      "additionalProperties": false,
+      "description": "导出章节体（JSON 输出，正文以字段嵌入）。",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "contentHash": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "wordCount": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "content",
+        "contentHash",
+        "createdAt",
+        "id",
+        "status",
+        "title",
+        "updatedAt",
+        "wordCount"
+      ],
+      "type": "object"
+    },
+    "ExportFullVolumeJson": {
+      "additionalProperties": false,
+      "description": "`novel export full` 单卷结构。",
+      "properties": {
+        "chapters": {
+          "items": {
+            "$ref": "#/definitions/ExportChapterBody"
+          },
+          "type": "array"
+        },
+        "volume": {
+          "$ref": "#/definitions/VolumeJson"
+        }
+      },
+      "required": [
+        "chapters",
+        "volume"
+      ],
+      "type": "object"
+    },
+    "HashWarning": {
+      "additionalProperties": false,
+      "description": "hash 失配警告（全量导出）。",
+      "properties": {
+        "actualHash": {
+          "type": "string"
+        },
+        "chapterId": {
+          "type": "string"
+        },
+        "storedHash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "actualHash",
+        "chapterId",
+        "storedHash"
+      ],
+      "type": "object"
+    },
+    "VolumeJson": {
+      "additionalProperties": false,
+      "properties": {
+        "archivedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "order": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "sealedAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "volumeId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "createdAt",
+        "name",
+        "order",
+        "status",
+        "updatedAt",
+        "volumeId"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "`novel export full` JSON 输出结构。",
+  "properties": {
+    "exportedAt": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "volumes": {
+      "items": {
+        "$ref": "#/definitions/ExportFullVolumeJson"
+      },
+      "type": "array"
+    },
+    "warnings": {
+      "items": {
+        "$ref": "#/definitions/HashWarning"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "exportedAt",
+    "schemaVersion",
+    "scope",
+    "volumes",
+    "warnings"
+  ],
+  "title": "ExportFullJson",
+  "type": "object"
+}

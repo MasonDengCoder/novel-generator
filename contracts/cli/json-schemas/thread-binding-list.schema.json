@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ThreadBindingJson": {
+      "additionalProperties": false,
+      "description": "线索绑定 JSON 输出结构。",
+      "properties": {
+        "bindingType": {
+          "type": "string"
+        },
+        "chapterId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "threadId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "bindingType",
+        "chapterId",
+        "createdAt",
+        "threadId"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "线索绑定列表 JSON 输出结构。",
+  "properties": {
+    "bindings": {
+      "items": {
+        "$ref": "#/definitions/ThreadBindingJson"
+      },
+      "type": "array"
+    },
+    "schemaVersion": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "bindings",
+    "schemaVersion"
+  ],
+  "title": "ThreadBindingListJson",
+  "type": "object"
+}

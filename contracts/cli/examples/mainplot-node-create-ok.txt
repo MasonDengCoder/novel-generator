@@ -1,0 +1,67 @@
+$ novel mainplot node create 1 --title "Hero meets mentor" --description "Protagonist meets mentor for the first time"
+
+主线节点：mp-1-1
+  卷：1
+  序号：1
+  标题：Hero meets mentor
+  描述：Protagonist meets mentor for the first time
+  达成状态：未达成
+  创建时间：2026-07-14T02:55:43.57682Z
+  更新时间：2026-07-14T02:55:43.57682Z
+
+$ novel mainplot node create 1 --title "Hero meets mentor" --json
+
+{
+  "schemaVersion": "9",
+  "id": "mp-1-1",
+  "volumeId": 1,
+  "sequenceNumber": 1,
+  "title": "Hero meets mentor",
+  "description": "Protagonist meets mentor for the first time",
+  "targetChapters": null,
+  "achieved": 0,
+  "createdAt": "2026-07-14T02:55:43.57682Z",
+  "updatedAt": "2026-07-14T02:55:43.57682Z"
+}
+
+$ novel mainplot node get mp-1-1 --json
+（输出同上结构）
+
+$ novel mainplot node list 1 --json
+
+{
+  "schemaVersion": "9",
+  "nodes": [
+    {
+      "schemaVersion": "9",
+      "id": "mp-1-1",
+      "volumeId": 1,
+      "sequenceNumber": 1,
+      "title": "Hero meets mentor",
+      "description": "Protagonist meets mentor for the first time",
+      "targetChapters": null,
+      "achieved": 0,
+      "createdAt": "2026-07-14T02:55:43.57682Z",
+      "updatedAt": "2026-07-14T02:55:43.57682Z"
+    }
+  ]
+}
+
+$ novel mainplot node update mp-1-1 --achieved 1
+
+主线节点 mp-1-1 达成状态已更新。
+
+$ novel mainplot node get mp-1-1 --json
+
+{
+  "schemaVersion": "9",
+  "id": "mp-1-1",
+  "volumeId": 1,
+  "sequenceNumber": 1,
+  "title": "Hero meets mentor",
+  "description": "Protagonist meets mentor for the first time",
+  "targetChapters": null,
+  "achieved": 1,
+  "createdAt": "2026-07-14T02:55:43.57682Z",
+  "updatedAt": "2026-07-14T02:56:10.123456Z"
+}

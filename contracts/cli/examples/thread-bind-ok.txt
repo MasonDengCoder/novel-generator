@@ -1,0 +1,44 @@
+$ novel thread create 1 --name "revenge-arc" --description "Protagonist seeks revenge" --json
+
+{
+  "schemaVersion": "9",
+  "id": "th-1-1",
+  "volumeId": 1,
+  "name": "revenge-arc",
+  "description": "Protagonist seeks revenge",
+  "status": "active",
+  "createdAt": "2026-07-14T03:03:51.901753Z",
+  "updatedAt": "2026-07-14T03:03:51.901753Z"
+}
+
+$ novel thread bind th-1-1 --chapter chapter-001 --type develop --note "Key development scene"
+
+线索 th-1-1 已绑定到章节 chapter-001。
+
+$ novel thread query --chapter chapter-001 --json
+
+{
+  "schemaVersion": "9",
+  "bindings": [
+    {
+      "threadId": "th-1-1",
+      "chapterId": "chapter-001",
+      "bindingType": "develop",
+      "note": "Key development scene",
+      "createdAt": "2026-07-14T05:22:55.130244Z"
+    }
+  ]
+}
+
+$ novel thread query --chapter chapter-001
+
+┌────────┬──────────┬────────────────────┬─────────────────────────────┐
+│ 线索ID ┆ 绑定类型 ┆ 备注             ┆ 创建时间                    │
+╞════════╪══════════╪══════════════════╪═════════════════════════════╡
+│ th-1-1 ┆ develop  ┆ Key development ┆ 2026-07-14T05:22:55.130244Z │
+│        ┆          ┆ scene            ┆                             │
+└────────┴──────────┴──────────────────┴─────────────────────────────┘
+
+$ novel thread update th-1-1 --status resolved
+
+线索 th-1-1 状态已更新为 resolved。

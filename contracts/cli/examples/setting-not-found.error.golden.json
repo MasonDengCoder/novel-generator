@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "error-protocol/v2",
+  "status": "failed",
+  "errorId": "setting_not_found",
+  "category": "not_found",
+  "exitCode": 6,
+  "message": "配置项 'non-existent-key' 不存在。"
+}

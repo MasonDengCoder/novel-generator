@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "9",
+  "settings": [
+    {
+      "name": "world-style",
+      "value": "奇幻史诗",
+      "createdAt": "2026-06-26T10:00:00Z"
+    },
+    {
+      "name": "author-name",
+      "value": "张三",
+      "createdAt": "2026-06-26T10:05:00Z"
+    }
+  ]
+}

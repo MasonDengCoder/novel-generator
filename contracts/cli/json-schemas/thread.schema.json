@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "description": "线索 JSON 输出结构。",
+  "properties": {
+    "createdAt": {
+      "type": "string"
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "volumeId": {
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "createdAt",
+    "id",
+    "name",
+    "schemaVersion",
+    "status",
+    "updatedAt",
+    "volumeId"
+  ],
+  "title": "ThreadJson",
+  "type": "object"
+}

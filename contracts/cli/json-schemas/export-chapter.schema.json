@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ExportChapterBody": {
+      "additionalProperties": false,
+      "description": "导出章节体（JSON 输出，正文以字段嵌入）。",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "contentHash": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "wordCount": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "content",
+        "contentHash",
+        "createdAt",
+        "id",
+        "status",
+        "title",
+        "updatedAt",
+        "wordCount"
+      ],
+      "type": "object"
+    },
+    "RuleCheck": {
+      "additionalProperties": false,
+      "description": "规则检查结果（对应 rule_checks 表行）。",
+      "properties": {
+        "chapter_id": {
+          "type": "string"
+        },
+        "checked_at": {
+          "type": "string"
+        },
+        "constraint_name": {
+          "type": "string"
+        },
+        "constraint_scope": {
+          "type": "string"
+        },
+        "constraint_type": {
+          "type": "string"
+        },
+        "content_hash": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "severity": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "chapter_id",
+        "checked_at",
+        "constraint_name",
+        "constraint_scope",
+        "constraint_type",
+        "content_hash",
+        "id",
+        "passed",
+        "severity"
+      ],
+      "type": "object"
+    },
+    "Verdict": {
+      "additionalProperties": false,
+      "description": "裁决记录（对应 verdicts 表行）。",
+      "properties": {
+        "achieved": {
+          "type": "boolean"
+        },
+        "chapterId": {
+          "type": "string"
+        },
+        "contentHash": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "nodeId": {
+          "type": "string"
+        },
+        "verdictType": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "achieved",
+        "chapterId",
+        "contentHash",
+        "createdAt",
+        "id",
+        "nodeId",
+        "verdictType"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "`novel export chapter` JSON 输出结构。",
+  "properties": {
+    "chapter": {
+      "$ref": "#/definitions/ExportChapterBody"
+    },
+    "exportedAt": {
+      "type": "string"
+    },
+    "ruleChecks": {
+      "items": {
+        "$ref": "#/definitions/RuleCheck"
+      },
+      "type": "array"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "verdicts": {
+      "items": {
+        "$ref": "#/definitions/Verdict"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "chapter",
+    "exportedAt",
+    "ruleChecks",
+    "schemaVersion",
+    "scope",
+    "verdicts"
+  ],
+  "title": "ExportChapterJson",
+  "type": "object"
+}

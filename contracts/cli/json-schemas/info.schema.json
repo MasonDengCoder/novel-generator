@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "Counts": {
+      "additionalProperties": false,
+      "properties": {
+        "chapters": {
+          "format": "uint64",
+          "minimum": 0.0,
+          "type": "integer"
+        },
+        "constraints": {
+          "format": "uint64",
+          "minimum": 0.0,
+          "type": "integer"
+        },
+        "mainplotNodes": {
+          "format": "uint64",
+          "minimum": 0.0,
+          "type": "integer"
+        },
+        "settings": {
+          "format": "uint64",
+          "minimum": 0.0,
+          "type": "integer"
+        },
+        "volumes": {
+          "format": "uint64",
+          "minimum": 0.0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "chapters",
+        "constraints",
+        "mainplotNodes",
+        "settings",
+        "volumes"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "`novel info --json` 与人读输出共用的世界概况对象。",
+  "properties": {
+    "counts": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Counts"
+        }
+      ],
+      "description": "各实体计数，反映对应实体表的真实行数。"
+    },
+    "createdAt": {
+      "description": "世界创建时间（ISO-8601）。",
+      "type": "string"
+    },
+    "dbPath": {
+      "description": "相对世界目录的数据库路径。",
+      "type": "string"
+    },
+    "projectName": {
+      "description": "项目/世界名称。",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "description": "世界状态 schema 版本，单一数据源：SQLite PRAGMA user_version。",
+      "type": "string"
+    }
+  },
+  "required": [
+    "counts",
+    "createdAt",
+    "dbPath",
+    "projectName",
+    "schemaVersion"
+  ],
+  "title": "WorldInfo",
+  "type": "object"
+}

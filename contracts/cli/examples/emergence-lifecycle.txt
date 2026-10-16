@@ -1,0 +1,103 @@
+$ novel emergence create 1 --title "Unexpected ally appears" --description "A former enemy offers help" --chapter chapter-005
+
+涌现：em-1-1
+  卷：1
+  标题：Unexpected ally appears
+  描述：A former enemy offers help
+  状态：pending
+  发现时间：2026-07-14T10:32:00.000000Z
+
+$ novel emergence create 1 --title "Unexpected ally appears" --description "..." --json
+
+{
+  "schemaVersion": "9",
+  "id": "em-1-1",
+  "volumeId": 1,
+  "chapterId": "chapter-005",
+  "title": "Unexpected ally appears",
+  "description": "A former enemy offers help",
+  "discoveredAt": "2026-07-14T10:32:00.000000Z",
+  "status": "pending",
+  "rating": null,
+  "ratingReason": null,
+  "ratedAt": null,
+  "decision": null,
+  "decisionReason": null,
+  "decidedAt": null,
+  "executionTarget": null,
+  "executionNote": null,
+  "executedAt": null,
+  "archivedAt": null,
+  "createdAt": "2026-07-14T10:32:00.000000Z",
+  "updatedAt": "2026-07-14T10:32:00.000000Z"
+}
+
+$ novel emergence rate em-1-1 --rating 8 --reason "High impact on main plot, feasible to implement"
+
+涌现：em-1-1
+  卷：1
+  标题：Unexpected ally appears
+  描述：A former enemy offers help
+  状态：rated
+  发现时间：2026-07-14T10:32:00.000000Z
+  评分：8/10
+  评分理由：High impact on main plot, feasible to implement
+
+$ novel emergence decide em-1-1 --decision accept --reason "Aligns with story arc, will implement in chapter 10"
+
+涌现：em-1-1
+  卷：1
+  标题：Unexpected ally appears
+  描述：A former enemy offers help
+  状态：decided
+  发现时间：2026-07-14T10:32:00.000000Z
+  评分：8/10
+  评分理由：High impact on main plot, feasible to implement
+  决策：accept
+  决策理由：Aligns with story arc, will implement in chapter 10
+
+$ novel emergence execute em-1-1 --target chapter-010 --note "Integrated into chapter climax"
+
+涌现：em-1-1
+  卷：1
+  标题：Unexpected ally appears
+  描述：A former enemy offers help
+  状态：executed
+  发现时间：2026-07-14T10:32:00.000000Z
+  评分：8/10
+  评分理由：High impact on main plot, feasible to implement
+  决策：accept
+  决策理由：Aligns with story arc, will implement in chapter 10
+  执行目标：chapter-010
+  执行备注：Integrated into chapter climax
+
+$ novel emergence archive em-1-1
+
+涌现：em-1-1
+  卷：1
+  标题：Unexpected ally appears
+  描述：A former enemy offers help
+  状态：archived
+  发现时间：2026-07-14T10:32:00.000000Z
+  评分：8/10
+  评分理由：High impact on main plot, feasible to implement
+  决策：accept
+  决策理由：Aligns with story arc, will implement in chapter 10
+  执行目标：chapter-010
+  执行备注：Integrated into chapter climax
+  归档时间：2026-07-14T10:35:00.000000Z
+
+# 非法状态转换示例：未评分直接决策（pending → decided 非法，退出码 41）
+$ novel emergence decide em-1-1 --decision accept --reason "..." --json
+
+{"code":"invalid_state_transition","message":"无法从状态 pending 转换到 decided，必须按照 pending→rated→decided→executed→archived 顺序推进","exitCode":41,"suggestion":"请检查当前状态是否允许此操作。"}
+
+# defer/reject 决策不可执行（退出码 41）
+$ novel emergence execute em-1-1 --target chapter-010
+
+{"code":"invalid_state_transition","message":"无法执行 defer 决策的涌现，只有 accept 决策可以执行","exitCode":41,"suggestion":"请检查当前状态是否允许此操作。"}
+
+# 已归档涌现不可修改（退出码 47）
+$ novel emergence rate em-1-1 --rating 5 --reason "..." --json
+
+{"code":"emergence_archived","message":"涌现已归档，无法修改","exitCode":47,"suggestion":"已归档的涌现不可修改。"}

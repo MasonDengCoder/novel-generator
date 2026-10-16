@@ -1,0 +1,30 @@
+[package]
+name = "spec-gen"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+description = "spec→contract-test 生成器：从 openspec @codegen 块生成契约测试，构造性消除设计↔实现漂移"
+
+[[bin]]
+name = "spec-gen"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+pulldown-cmark = "0.10"
+walkdir = "2"
+anyhow = "1"
+regex = "1"
+toml_edit = "0.22"
+# contract-governance-02-error-enum-gen：以 lib 形式消费 novel-cli 的 ExitCode/ErrorCode enum
+# 变体迭代器（EnumIter），遍历变体生成 exit-codes/error-codes 的机器可导出列，对账手写 md。
+novel-cli = { path = "../novel-cli" }
+strum = "0.26"
+# contract-governance-03-struct-schema-gen：schemars 0.8（与 novel-cli 同版本），用于对
+# novel-cli 的 Serialize struct 调 schema_for! 导出 JSON Schema 生成 json-schemas/*.json。
+schemars = { version = "0.8", features = ["derive"] }
+# contract-governance-04-specgen-rebuild：消费 novel-cli 的 clap 命令树（Command::get_subcommands
+# / get_arguments），遍历生成 commands.md 命令语法段与参数表。
+clap = { version = "4", features = ["derive"] }

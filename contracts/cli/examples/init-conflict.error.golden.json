@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "error-protocol/v2",
+  "status": "failed",
+  "errorId": "resource_conflict",
+  "category": "conflict",
+  "exitCode": 4,
+  "message": "目标目录下已存在 .novel/，拒绝覆盖。请使用已存在的世界或更换 --path。"
+}

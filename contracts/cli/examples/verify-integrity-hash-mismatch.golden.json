@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "error-protocol/v2",
+  "status": "failed",
+  "errorId": "content_modified_externally",
+  "category": "integrity",
+  "exitCode": 5,
+  "message": "完整性验证未通过：1 项失败",
+  "details": {
+    "schemaVersion": "9",
+    "verifiedAt": "2026-07-15T00:00:00Z",
+    "hashIntegrity": {
+      "passed": false,
+      "mismatches": [
+        {
+          "chapterId": "chapter-001",
+          "storedHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "actualHash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"
+        }
+      ],
+      "missingFiles": []
+    },
+    "referenceIntegrity": {
+      "passed": true,
+      "danglingReferences": []
+    },
+    "stateConsistency": {
+      "passed": true,
+      "inconsistencies": []
+    }
+  }
+}

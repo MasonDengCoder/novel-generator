@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "ConstraintViewItemJson": {
+      "additionalProperties": false,
+      "properties": {
+        "constraintType": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "sourceRefs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "constraintType",
+        "content",
+        "createdAt",
+        "name",
+        "scope",
+        "severity",
+        "sourceRefs"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "JSON 输出结构（constraint render --view/--scope 受控视图）。\n\n引用 contracts/cli/views-scopes.md §A 组 2/组 3。每个 constraint 元素含完整 content 与 sourceRefs（`constraint:<type>:<scope>:<name>` 格式，按复合键字符串引用形态）。",
+  "properties": {
+    "chapterId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "constraints": {
+      "items": {
+        "$ref": "#/definitions/ConstraintViewItemJson"
+      },
+      "type": "array"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "view": {
+      "type": "string"
+    },
+    "volumeId": {
+      "format": "int64",
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "constraints",
+    "schemaVersion",
+    "scope",
+    "view"
+  ],
+  "title": "ConstraintViewJson",
+  "type": "object"
+}

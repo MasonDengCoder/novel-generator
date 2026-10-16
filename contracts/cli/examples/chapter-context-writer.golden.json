@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "9",
+  "chapterId": "chapter-001",
+  "view": "writer",
+  "budget": {
+    "limit": 60000,
+    "used": 512
+  },
+  "fragments": [
+    {
+      "id": "p0-hard-constraints",
+      "type": "hard-constraint",
+      "priority": "P0",
+      "sourceRefs": [
+        "constraint:plot:world:时间线一致"
+      ],
+      "content": "hard 约束：时间线必须保持一致，不得出现矛盾"
+    },
+    {
+      "id": "p0-verdict",
+      "type": "verdict",
+      "priority": "P0",
+      "sourceRefs": [
+        "verdict:chapter-001:mp-1-1"
+      ],
+      "content": "mainplot-landing 裁决：节点 mp-1-1 achieved=1，绑定正文 hash"
+    },
+    {
+      "id": "p0-rule-checks",
+      "type": "rule-check",
+      "priority": "P0",
+      "sourceRefs": [
+        "constraint:plot:world:时间线一致"
+      ],
+      "content": "规则检查：passed=true，stale=false，绑定当前正文 hash"
+    },
+    {
+      "id": "p0-chapter-state",
+      "type": "chapter-state",
+      "priority": "P0",
+      "sourceRefs": [
+        "chapter:chapter-001"
+      ],
+      "content": "章节状态：drafting，content hash 已校验一致"
+    },
+    {
+      "id": "p1-thread-bindings",
+      "type": "thread-binding",
+      "priority": "P1",
+      "sourceRefs": [
+        "thread:th-1-1"
+      ],
+      "content": "线索绑定：th-1-1 develop，备注：本章推进复仇线"
+    },
+    {
+      "id": "p1-mainplot-nodes",
+      "type": "mainplot-node",
+      "priority": "P1",
+      "sourceRefs": [
+        "mainplot:mp-1-1"
+      ],
+      "content": "关联主线节点：mp-1-1「启程」，target_chapters 含本章"
+    },
+    {
+      "id": "p1-volume-goals",
+      "type": "volume-goal",
+      "priority": "P1",
+      "sourceRefs": [
+        "volume_goal:1:1"
+      ],
+      "content": "卷目标：必达 mainplot 节点 mp-1-1"
+    },
+    {
+      "id": "p1-previous-residue",
+      "type": "previous-residue",
+      "priority": "P1",
+      "sourceRefs": [
+        "chapter:chapter-000"
+      ],
+      "content": "上章残余正文尾部片段（full 形态）"
+    }
+  ],
+  "audit": {
+    "compressed": [],
+    "failures": []
+  },
+  "overflow": {
+    "omitted": [
+      {
+        "id": "chapter-contract",
+        "reason": "no_data_backing_table",
+        "sourceRefs": []
+      },
+      {
+        "id": "character-snapshot",
+        "reason": "no_data_backing_table",
+        "sourceRefs": []
+      },
+      {
+        "id": "subplot-situation",
+        "reason": "no_data_backing_table",
+        "sourceRefs": []
+      }
+    ]
+  }
+}

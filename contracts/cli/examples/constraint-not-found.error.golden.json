@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "error-protocol/v2",
+  "status": "failed",
+  "errorId": "constraint_not_found",
+  "category": "not_found",
+  "exitCode": 6,
+  "message": "约束 (type='plot', scope='world', name='不存在') 不存在。"
+}

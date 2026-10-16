@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "MainplotNodeJson": {
+      "additionalProperties": false,
+      "description": "主线节点 JSON 输出结构。\n\n注意（contracts/cli/json-schemas/mainplot-node.schema.json）：`achieved` 为 integer enum [0,1]（0=未达成, 1=已达成），与 domain MainplotNode.achieved (i64) 一致。 不输出 bool，避免稳定 JSON 契约内部矛盾。",
+      "properties": {
+        "achieved": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "schemaVersion": {
+          "type": "string"
+        },
+        "sequenceNumber": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "targetChapters": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "volumeId": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "achieved",
+        "createdAt",
+        "id",
+        "schemaVersion",
+        "sequenceNumber",
+        "title",
+        "updatedAt",
+        "volumeId"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "主线节点列表 JSON 输出结构。",
+  "properties": {
+    "nodes": {
+      "items": {
+        "$ref": "#/definitions/MainplotNodeJson"
+      },
+      "type": "array"
+    },
+    "schemaVersion": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "nodes",
+    "schemaVersion"
+  ],
+  "title": "MainplotNodeListJson",
+  "type": "object"
+}

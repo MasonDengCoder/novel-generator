@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "9",
+  "constraintType": "plot",
+  "scope": "world",
+  "name": "时间线一致性",
+  "content": "所有章节的时间线必须保持一致，不得出现矛盾或逻辑冲突。",
+  "severity": "hard",
+  "createdAt": "2026-06-26T10:10:00Z"
+}

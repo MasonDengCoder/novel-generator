@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "9",
+  "scope": "chapter",
+  "exportedAt": "2026-07-15T00:00:00Z",
+  "chapter": {
+    "id": "chapter-001",
+    "title": "第一章",
+    "content": "第一章正文内容……",
+    "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wordCount": 100,
+    "status": "approved",
+    "createdAt": "2026-07-02T00:00:00Z",
+    "updatedAt": "2026-07-03T00:00:00Z"
+  },
+  "verdicts": [],
+  "ruleChecks": []
+}

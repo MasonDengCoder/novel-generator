@@ -1,0 +1,7 @@
+[workspace]
+members = ["crates/novel-cli", "crates/spec-gen"]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "MIT"

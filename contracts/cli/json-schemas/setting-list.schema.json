@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "SettingItemJson": {
+      "additionalProperties": false,
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "name",
+        "value"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "JSON 输出结构（setting 列表）。",
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "settings": {
+      "items": {
+        "$ref": "#/definitions/SettingItemJson"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "settings"
+  ],
+  "title": "SettingListJson",
+  "type": "object"
+}

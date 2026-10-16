@@ -1,0 +1,257 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://novel-generator/contracts/cli/json-schemas/chapter.schema.json",
+  "title": "novel chapter --json outputs",
+  "description": "Stable structured JSON outputs of `novel chapter` commands. Source: s02-chapter-content-core design D5.",
+  "definitions": {
+    "chapterCreate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "id",
+        "title",
+        "createdAt"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "CLI Contract schema version. Decimal integer string (e.g. \"1\"). Current: \"9\"."
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^chapter-[0-9]{3}$",
+          "description": "Chapter ID in format 'chapter-NNN' where NNN is a three-digit sequence number."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Chapter title."
+        },
+        "volumeId": {
+          "type": "string",
+          "description": "Volume ID the chapter belongs to (stringified integer). Present only when --volume was passed; absent when chapter has no volume binding."
+        },
+        "createdAt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 creation timestamp."
+        }
+      }
+    },
+    "chapterGet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "id",
+        "title",
+        "content",
+        "contentHash",
+        "wordCount",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the world state schema."
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^chapter-[0-9]{3}$",
+          "description": "Chapter ID."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Chapter title."
+        },
+        "content": {
+          "type": "string",
+          "description": "Chapter content (Markdown). May be empty if no content has been written yet."
+        },
+        "contentHash": {
+          "type": "string",
+          "minLength": 1,
+          "description": "SHA-256 hash of the chapter content file. Used for external-modification detection; matches the hash stored in SQLite."
+        },
+        "wordCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Word count excluding Markdown markers. Chinese characters are counted individually."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "outline",
+            "drafting",
+            "review",
+            "approved"
+          ],
+          "description": "Chapter state-machine status. One of outline/drafting/review/approved."
+        },
+        "volumeId": {
+          "type": "string",
+          "description": "Volume ID the chapter belongs to (stringified integer). Present only when the chapter has a volume binding; absent otherwise."
+        },
+        "createdAt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 last update timestamp."
+        }
+      }
+    },
+    "chapterUpdate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "id",
+        "contentHash",
+        "wordCount",
+        "updatedAt"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "CLI Contract schema version."
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^chapter-[0-9]{3}$",
+          "description": "Updated chapter ID."
+        },
+        "contentHash": {
+          "type": "string",
+          "minLength": 1,
+          "description": "SHA-256 hash of the committed chapter content."
+        },
+        "wordCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Word count of the committed chapter content."
+        },
+        "updatedAt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 timestamp of the committed update."
+        }
+      }
+    },
+    "chapterListItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "wordCount",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^chapter-[0-9]{3}$",
+          "description": "Chapter ID."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Chapter title."
+        },
+        "wordCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Word count excluding Markdown markers."
+        },
+        "createdAt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 last update timestamp."
+        },
+        "hashVerified": {
+          "type": "boolean",
+          "description": "Present only when --verify-hash is used. True if hash matches."
+        },
+        "hashMismatch": {
+          "type": "boolean",
+          "description": "Present only when --verify-hash is used and hash does not match. True indicates external modification."
+        }
+      }
+    },
+    "chapterList": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "chapters"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Version of the world state schema."
+        },
+        "chapters": {
+          "type": "array",
+          "description": "Array of chapter metadata, sorted by creation time ascending.",
+          "items": {
+            "$ref": "#/definitions/chapterListItem"
+          }
+        }
+      }
+    },
+    "chapterStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "id",
+        "status",
+        "updatedAt"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+$",
+          "description": "CLI Contract schema version."
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^chapter-[0-9]{3}$",
+          "description": "Transitioned chapter ID."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "outline",
+            "drafting",
+            "review",
+            "approved"
+          ],
+          "description": "Chapter status after the transition."
+        },
+        "updatedAt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "ISO-8601 timestamp of the transition."
+        }
+      }
+    }
+  }
+}

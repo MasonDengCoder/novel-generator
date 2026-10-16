@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "9",
+  "view": "llm",
+  "scope": "chapter",
+  "chapterId": "chapter-001",
+  "constraints": [
+    {
+      "constraintType": "character",
+      "scope": "chapter:chapter-001",
+      "name": "主角出场",
+      "content": "第一章必须让主角登场",
+      "severity": "hard",
+      "createdAt": "2026-07-21T08:20:43Z",
+      "sourceRefs": [
+        "constraint:character:chapter:chapter-001:主角出场"
+      ]
+    },
+    {
+      "constraintType": "plot",
+      "scope": "world",
+      "name": "时间线一致",
+      "content": "全局时间线不可矛盾",
+      "severity": "hard",
+      "createdAt": "2026-07-21T08:20:42Z",
+      "sourceRefs": [
+        "constraint:plot:world:时间线一致"
+      ]
+    }
+  ]
+}

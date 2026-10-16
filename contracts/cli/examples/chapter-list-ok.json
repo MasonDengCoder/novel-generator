@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "9",
+  "chapters": [
+    {
+      "id": "chapter-001",
+      "title": "第一章：起源",
+      "wordCount": 1523,
+      "createdAt": "2026-06-29T08:00:00Z",
+      "updatedAt": "2026-06-29T09:30:00Z"
+    },
+    {
+      "id": "chapter-002",
+      "title": "第二章：觉醒",
+      "wordCount": 2047,
+      "createdAt": "2026-06-29T10:00:00Z",
+      "updatedAt": "2026-06-29T11:15:00Z"
+    }
+  ]
+}

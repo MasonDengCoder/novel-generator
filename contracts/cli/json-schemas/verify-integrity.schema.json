@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "DanglingReference": {
+      "additionalProperties": false,
+      "properties": {
+        "entityId": {
+          "type": "string"
+        },
+        "entityType": {
+          "type": "string"
+        },
+        "referencedEntityType": {
+          "type": "string"
+        },
+        "referencedId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "entityId",
+        "entityType",
+        "referencedEntityType",
+        "referencedId"
+      ],
+      "type": "object"
+    },
+    "HashIntegrityJson": {
+      "additionalProperties": false,
+      "properties": {
+        "mismatches": {
+          "items": {
+            "$ref": "#/definitions/HashMismatch"
+          },
+          "type": "array"
+        },
+        "missingFiles": {
+          "items": {
+            "$ref": "#/definitions/MissingFile"
+          },
+          "type": "array"
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "mismatches",
+        "missingFiles",
+        "passed"
+      ],
+      "type": "object"
+    },
+    "HashMismatch": {
+      "additionalProperties": false,
+      "properties": {
+        "actualHash": {
+          "type": "string"
+        },
+        "chapterId": {
+          "type": "string"
+        },
+        "storedHash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "actualHash",
+        "chapterId",
+        "storedHash"
+      ],
+      "type": "object"
+    },
+    "Inconsistency": {
+      "additionalProperties": false,
+      "properties": {
+        "boundHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "chapterId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "chapterStatus": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currentHash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "volumeId": {
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "type": "object"
+    },
+    "MissingFile": {
+      "additionalProperties": false,
+      "properties": {
+        "chapterId": {
+          "type": "string"
+        },
+        "expectedPath": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "chapterId",
+        "expectedPath"
+      ],
+      "type": "object"
+    },
+    "ReferenceIntegrityJson": {
+      "additionalProperties": false,
+      "properties": {
+        "danglingReferences": {
+          "items": {
+            "$ref": "#/definitions/DanglingReference"
+          },
+          "type": "array"
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "danglingReferences",
+        "passed"
+      ],
+      "type": "object"
+    },
+    "StateConsistencyJson": {
+      "additionalProperties": false,
+      "properties": {
+        "inconsistencies": {
+          "items": {
+            "$ref": "#/definitions/Inconsistency"
+          },
+          "type": "array"
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "inconsistencies",
+        "passed"
+      ],
+      "type": "object"
+    }
+  },
+  "properties": {
+    "hashIntegrity": {
+      "$ref": "#/definitions/HashIntegrityJson"
+    },
+    "referenceIntegrity": {
+      "$ref": "#/definitions/ReferenceIntegrityJson"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "stateConsistency": {
+      "$ref": "#/definitions/StateConsistencyJson"
+    },
+    "verifiedAt": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "hashIntegrity",
+    "referenceIntegrity",
+    "schemaVersion",
+    "stateConsistency",
+    "verifiedAt"
+  ],
+  "title": "VerifyReportJson",
+  "type": "object"
+}

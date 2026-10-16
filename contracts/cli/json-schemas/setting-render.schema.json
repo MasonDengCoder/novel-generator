@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "SettingViewItemJson": {
+      "additionalProperties": false,
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sourceRefs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "name",
+        "sourceRefs",
+        "value"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "JSON 输出结构（setting render --view，受控视图）。\n\n引用 contracts/cli/views-scopes.md §A 组 1。每个 setting 元素带 sourceRefs （`setting:<name>` 格式，按复合键字符串引用形态，见 entity-ids-sourcerefs.md）。",
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "settings": {
+      "items": {
+        "$ref": "#/definitions/SettingViewItemJson"
+      },
+      "type": "array"
+    },
+    "view": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "settings",
+    "view"
+  ],
+  "title": "SettingViewJson",
+  "type": "object"
+}

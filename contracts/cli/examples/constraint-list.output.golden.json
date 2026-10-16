@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "9",
+  "constraints": [
+    {
+      "constraintType": "plot",
+      "scope": "world",
+      "name": "时间线一致性",
+      "severity": "hard",
+      "createdAt": "2026-06-26T10:10:00Z"
+    },
+    {
+      "constraintType": "character",
+      "scope": "volume:v1",
+      "name": "角色行为一致性",
+      "severity": "soft",
+      "createdAt": "2026-06-26T10:15:00Z"
+    }
+  ]
+}

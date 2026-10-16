@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "error-protocol/v2",
+  "status": "failed",
+  "errorId": "context_budget_exceeded",
+  "category": "precondition",
+  "exitCode": 3,
+  "message": "上下文预算不足：P0 装填后已超过 budget.limit。请调高 --budget 或拆章。",
+  "details": {
+    "budget": {
+      "limit": 1,
+      "used": 512
+    },
+    "failures": [
+      {
+        "layer": "P0",
+        "estimatedUsed": 512,
+        "reason": "P0（hard 约束 + 裁决 + 检查 + 章节状态）不可压缩，装填后已超过 budget.limit"
+      }
+    ],
+    "partialPacket": {
+      "schemaVersion": "9",
+      "chapterId": "chapter-001",
+      "view": "writer",
+      "budget": {
+        "limit": 1,
+        "used": 512
+      },
+      "fragments": [
+        {
+          "id": "p0-hard-constraints",
+          "type": "hard-constraint",
+          "priority": "P0",
+          "sourceRefs": [
+            "constraint:plot:world:时间线一致"
+          ],
+          "content": "hard 约束：时间线必须保持一致"
+        }
+      ],
+      "audit": {
+        "compressed": [],
+        "failures": [
+          {
+            "layer": "P0",
+            "estimatedUsed": 512,
+            "reason": "P0 不可压缩，装填后超过 budget.limit"
+          }
+        ]
+      },
+      "overflow": {
+        "omitted": []
+      }
+    }
+  }
+}

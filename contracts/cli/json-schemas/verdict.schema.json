@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://novel-generator/contracts/cli/json-schemas/verdict.schema.json",
+  "title": "novel verdict set-mainplot-landing --json output",
+  "description": "Stable structured JSON output of `novel verdict set-mainplot-landing`. Source: s04-state-machine-and-verdicts design D8.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "chapterId",
+    "nodeId",
+    "achieved",
+    "contentHash",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+$",
+      "description": "CLI Contract schema version. Decimal integer string (e.g. \"1\"). Current: \"9\"."
+    },
+    "chapterId": {
+      "type": "string",
+      "pattern": "^chapter-[0-9]{3}$",
+      "description": "Chapter ID in format 'chapter-NNN'."
+    },
+    "nodeId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Mainplot node ID this verdict binds to."
+    },
+    "achieved": {
+      "type": "integer",
+      "enum": [
+        0,
+        1
+      ],
+      "description": "0 = not achieved, 1 = achieved."
+    },
+    "contentHash": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SHA-256 hex of the chapter content at verdict write time. Version anchor for state-machine guards."
+    },
+    "createdAt": {
+      "type": "string",
+      "minLength": 1,
+      "description": "ISO-8601 timestamp of the verdict write."
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "definitions": {
+    "CheckResultJson": {
+      "additionalProperties": false,
+      "description": "JSON 输出结构（单条规则检查结果）。\n\ncontract-governance-03-struct-schema-gen：从 render_check_results_json 函数内嵌提升为 模块级 pub struct，供 spec-gen 跨 crate 派生 schema。",
+      "properties": {
+        "checkedAt": {
+          "type": "string"
+        },
+        "constraintName": {
+          "type": "string"
+        },
+        "constraintScope": {
+          "type": "string"
+        },
+        "constraintType": {
+          "type": "string"
+        },
+        "contentHash": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "stale": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "checkedAt",
+        "constraintName",
+        "constraintScope",
+        "constraintType",
+        "contentHash",
+        "id",
+        "passed",
+        "severity",
+        "stale"
+      ],
+      "type": "object"
+    }
+  },
+  "description": "JSON 输出结构（规则检查结果列表）。",
+  "properties": {
+    "chapterId": {
+      "type": "string"
+    },
+    "checks": {
+      "items": {
+        "$ref": "#/definitions/CheckResultJson"
+      },
+      "type": "array"
+    },
+    "currentContentHash": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "chapterId",
+    "checks",
+    "currentContentHash",
+    "schemaVersion"
+  ],
+  "title": "CheckResultListJson",
+  "type": "object"
+}
