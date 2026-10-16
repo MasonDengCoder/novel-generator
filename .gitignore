@@ -1,6 +1,6 @@
 # Claude Code 配置 - 只提交 hooks 和 settings.json
-.claude/
-!.claude/setting.json
+.claude/*
+!.claude/settings.json
 
 .codex/
 .workbuddy/
